@@ -1,0 +1,591 @@
+amhrouting
+
+//SEARCH INDEX DETAILS
+//GET _cluster/state?pretty&filter_nodes=true&filter_routing_table=true&filter_indices=amhrouting
+
+POST amhrouting/_analyze
+{
+  "analyzer": "autocomplete",
+  "text": "'setr.016*' or code = 'setr.017..*'"
+}
+
+POST amhrouting/rules/_search
+{
+  "query": {
+    "match": {
+      "expression": {
+        "query": "017",
+        "analyzer": "standard"
+      }
+    }
+  }
+}
+
+amhrouting/rules/_search?q=code:prc
+
+{
+  "code": "BA-FUNDS-PRCH",
+  "expression": "receiverAddress = 'o=bppbchgg,o=swift' and (messageType/code = 'setr.016*' or messageType/code = 'setr.017..*') and direction = 'DISTRIBUTION'",
+  "version": "One",
+  "environment": "env1"
+}
+
+//POST amhrouting/rules/_search
+{
+  "query": {
+  "bool": {
+  "must": [
+  {
+  "match": {
+  "code": {
+  "query": "gr",
+  "analyzer": "standard",
+  "operator": "and"
+  }
+  }
+  },
+  {
+  "match": {
+  "expression": {
+  "query": "iast",
+  "analyzer": "standard",
+  "operator": "and"
+  }
+  }
+  }
+  ]
+  }
+  },
+  "from": 0,
+  "size": 20,
+  "sort": [
+  {
+  "code": {
+  "order": "desc"
+  }
+  }
+  ]
+}
+
+//GET amhrouting/users/bnp-user
+
+//POST _bulk
+{ "index":  { "_index": "authentication", "_type": "routingusers", "_id":"204030" }}
+{ "username":"204030", "oldPassword":"204030","newPassword":"", "firstName":"Claire", "lastName":"TOUZAC" }
+{ "index":  { "_index": "authentication", "_type": "routingusers", "_id":"a95843" }}
+{ "username":"a95843", "oldPassword":"a95843","newPassword":"", "firstName":"Kevin", "lastName":"Da Costa" }
+{ "index":  { "_index": "authentication", "_type": "routingusers", "_id":"a69996" }}
+{ "username":"a69996", "oldPassword":"a69996","newPassword":"", "firstName":"Fabrice", "lastName":"Labatut" }
+{ "index":  { "_index": "authentication", "_type": "routingusers", "_id":"375581" }}
+{ "username":"375581", "oldPassword":"375581","newPassword":"", "firstName":"Matthieu", "lastName":"BACHIAN" }
+{ "index":  { "_index": "authentication", "_type": "routingusers", "_id":"288509" }}
+{ "username":"288509", "oldPassword":"288509","newPassword":"", "firstName":"Jonathan", "lastName":"JOUXTEL" }
+{ "index":  { "_index": "authentication", "_type": "routingusers", "_id":"518693" }}
+{ "username":"518693", "oldPassword":"518693","newPassword":"", "firstName":"Nabil", "lastName":"BEJAOUI" }
+{ "index":  { "_index": "authentication", "_type": "routingusers", "_id":"a77115" }}
+{ "username":"a77115", "oldPassword":"a77115","newPassword":"", "firstName":"Jérémy", "lastName":"HIFRI" }
+{ "index":  { "_index": "authentication", "_type": "routingusers", "_id":"279501" }}
+{ "username":"279501", "oldPassword":"279501","newPassword":"", "firstName":"Michaël", "lastName":"AUBRY" }
+{ "index":  { "_index": "authentication", "_type": "routingusers", "_id":"system" }}
+{ "username":"system", "oldPassword":"system","newPassword":"", "firstName":"System", "lastName":"User" }
+{ "index":  { "_index": "authentication", "_type": "routingusers", "_id":"admin" }}
+{ "username":"admin", "oldPassword":"admin","newPassword":"", "firstName":"Admin", "lastName":"User" }
+//TO DELETE INDEX
+//DELETE amhrouting
+
+// PUT index authentication
+{
+  "settings": {
+    "number_of_shards": 1,
+    "analysis" : {
+        "analyzer" : {
+          "autocomplete" : {
+            "type" : "custom",
+            "tokenizer" : "lowercase",
+            "filter"    : ["asciifolding", "title_ngram"]
+          }
+        },
+        "filter" : {
+          "title_ngram" : {
+            "type" : "nGram",
+            "min_gram" : 3,
+            "max_gram" : 5
+          }
+        }
+      },
+    "mappings": {
+      "routingusers": {
+        "properties": {
+          "username": {
+            "type": "string",
+            "analyzer": "autocomplete"
+          },
+          "oldPassword": {
+            "type": "string",
+            "analyzer": "not_analyzed"
+          },
+          "newPassword": {
+            "type": "string",
+            "analyzer": "not_analyzed"
+          },
+          "firstName": {
+            "type": "string",
+            "analyzer": "not_analyzed"
+          },
+          "lastName": {
+            "type": "string",
+            "analyzer": "not_analyzed"
+          }
+        }
+      }
+    },
+    "aliases": [
+    ]
+  }
+}
+
+
+
+"number_of_shards": 1,
+    "analysis": {
+      "filter": {
+        "autocomplete_filter": {
+          "type": "nGram",
+          "min_gram": 2,
+          "max_gram": 20
+        }
+      },
+      "analyzer": {
+        "autocomplete": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase",
+			"asciifolding",
+            "autocomplete_filter"
+          ]
+        }
+      }
+	  
+//do  a PUT on index "tutorial"
+{
+   "settings": {
+      "analysis" : {
+        "filter" : {
+          "autocomplete_filter" : {
+            "type" : "nGram",
+            "min_gram" : 2,
+            "max_gram" : 50
+          }
+        },
+		"analyzer" : {
+          "autocomplete": {
+            "type": "custom",
+            "tokenizer": "whitespace",
+            "filter": [
+			  "lowercase",
+              "autocomplete_filter"
+            ]
+          }
+        }
+      }
+	},
+	"mappings": {
+      "distributionCopies": {
+        "properties": {
+          "sequence": {
+            "type": "long"
+          },
+          "environment": {
+            "type": "string",
+            "analyzer": "keyword"
+          },
+          "code": {
+            "type": "string",
+            "analyzer": "autocomplete"
+          },
+          "name": {
+            "type": "string",
+            "analyzer": "keyword"
+          },
+          "copies": {
+            "type": "long"
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "description": {
+            "type": "string",
+            "analyzer": "keyword"
+          },
+          "version": {
+            "type": "string",
+            "analyzer": "keyword"
+          },
+          "dataOwner": {
+            "type": "string",
+            "analyzer": "keyword"
+          },
+          "lockCode": {
+            "type": "string",
+            "analyzer": "keyword"
+          },
+          "rules": {
+            "properties": {
+              "sequence": {
+                "type": "long"
+              },
+              "code": {
+                "type": "string",
+                "analyzer": "autocomplete"
+              },
+              "expression": {
+                "type": "string",
+                "analyzer": "autocomplete"
+              },
+              "dataOwner": {
+                "type": "string",
+                "analyzer": "keyword"
+              },
+              "lockCode": {
+                "type": "string",
+                "analyzer": "keyword"
+              }
+            }
+          },
+          "backends": {
+            "properties": {
+              "code": {
+                "type": "string",
+                "analyzer": "autocomplete"
+              },
+              "direction": {
+                "type": "string",
+                "analyzer": "autocomplete"
+              },
+              "dataOwner": {
+                "type": "string",
+                "analyzer": "keyword"
+              },
+              "lockCode": {
+                "type": "string",
+                "analyzer": "keyword"
+              }
+            }
+          }
+        }
+      },
+      "backends": {
+        "properties": {
+          "code": {
+            "type": "string",
+            "analyzer": "autocomplete"
+          },
+          "pkDirection": {
+            "type": "string",
+            "analyzer": "autocomplete"
+          },
+          "pkCode": {
+            "type": "string",
+            "analyzer": "autocomplete"
+          },
+          "name": {
+            "type": "string",
+            "analyzer": "keyword"
+          },
+          "description": {
+            "type": "string",
+            "analyzer": "keyword"
+          },
+          "version": {
+            "type": "string",
+            "analyzer": "keyword"
+          },
+          "environment": {
+            "type": "string",
+            "analyzer": "keyword"
+          }
+        }
+      },
+      "assignments": {
+        "properties": {
+          "sequence": {
+            "type": "long"
+          },
+          "code": {
+            "type": "string",
+            "analyzer": "autocomplete"
+          },
+          "backendPrimaryKey": {
+            "properties": {
+              "code": {
+                "type": "string",
+                "analyzer": "autocomplete"
+              },
+              "direction": {
+                "type": "string",
+                "analyzer": "autocomplete"
+              }
+            }
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "version": {
+            "type": "string",
+            "analyzer": "keyword"
+          },
+          "environment": {
+            "type": "string",
+            "analyzer": "keyword"
+          },
+          "rules": {
+            "properties": {
+              "sequence": {
+                "type": "long"
+              },
+              "code": {
+                "type": "string",
+                "analyzer": "autocomplete"
+              },
+              "expression": {
+                "type": "string",
+                "analyzer": "autocomplete"
+              },
+              "dataOwner": {
+                "type": "string",
+                "analyzer": "keyword"
+              },
+              "lockCode": {
+                "type": "string",
+                "analyzer": "keyword"
+              }
+            }
+          }
+        }
+      },
+      "feedbackDtnCopies": {
+        "properties": {
+          "sequence": {
+          "type": "long"
+          },
+          "environment": {
+          "type": "string",
+          "analyzer": "keyword"
+          },
+          "code": {
+          "type": "string",
+          "analyzer": "autocomplete"
+          },
+          "name": {
+          "type": "string",
+          "analyzer": "keyword"
+          },
+          "copies": {
+          "type": "long"
+          },
+          "active": {
+          "type": "boolean"
+          },
+          "description": {
+          "type": "string",
+          "analyzer": "keyword"
+          },
+          "version": {
+          "type": "string",
+          "analyzer": "keyword"
+          },
+          "dataOwner": {
+          "type": "string",
+          "analyzer": "keyword"
+          },
+          "lockCode": {
+          "type": "string",
+          "analyzer": "keyword"
+          },
+          "rules": {
+            "properties": {
+              "sequence": {
+                "type": "long"
+              },
+              "code": {
+                "type": "string",
+                "analyzer": "autocomplete"
+              },
+              "expression": {
+                "type": "string",
+                "analyzer": "autocomplete"
+              },
+              "dataOwner": {
+                "type": "string",
+                "analyzer": "keyword"
+              },
+              "lockCode": {
+                "type": "string",
+                "analyzer": "keyword"
+              }
+            }
+          },
+          "backends": {
+            "properties": {
+              "code": {
+                "type": "string",
+                "analyzer": "autocomplete"
+              },
+              "direction": {
+                "type": "string",
+                "analyzer": "autocomplete"
+              },
+              "dataOwner": {
+                "type": "string",
+                "analyzer": "keyword"
+              },
+              "lockCode": {
+                "type": "string",
+                "analyzer": "keyword"
+              }
+            }
+          }
+        }
+      },
+      "rules": {
+        "properties": {
+          "code": {
+            "type": "string",
+            "analyzer": "autocomplete"
+          },
+          "expression": {
+            "type": "string",
+            "analyzer": "autocomplete"
+          },
+          "version": {
+            "type": "string",
+            "analyzer": "keyword"
+          },
+          "environment": {
+            "type": "string",
+            "analyzer": "keyword"
+          }
+        }
+      }
+    }
+}
+
+
+//TO ADD ANALIZER TO INDEX
+//CLOSE THE INDEX
+//POST amhrouting/_close
+//no body
+
+//PUT amhrouting/_settings
+{
+  "analysis" : {
+    "analyzer":{
+      "second":{
+        "type":"custom",
+        "tokenizer":"whitespace",
+        "filter":["lowercase"]
+      }
+    }
+  }
+}
+//CREATE THE TYPE
+//PUT tutorial/_mapping/my_type
+{
+  "my_type": {
+    "properties": {
+      "name": {
+        "type": "string",
+        "analyzer": "autocomplete"
+      }
+    }
+  }
+}
+
+//SERACH BY NOT_ANALYZED FIELD
+//POST amhrouting2/users/_search
+{
+  "query": {
+    "match_phrase": {
+      "name": {
+        "query": "bnp-user"
+      }
+    }
+  }
+}
+//UPDATE BY ID
+
+
+
+//PUT amhrouting/_mapping/users
+{
+  "users": {
+    "properties": {
+      "name": {
+        "type": "string",
+        "analyzer": "not_analyzed"
+      },
+      "old_password": {
+        "type": "string",
+        "analyzer": "not_analyzed"
+      },
+      "new_password": {
+        "type": "string",
+        "analyzer": "not_analyzed"
+      }
+    }
+  }
+}
+
+//INSERT INTO THE TYPE 'my_type'
+{
+  "index": {
+    "_id": 1
+  }
+}
+{
+  "name": "Brown foxes"
+}
+{
+  "index": {
+    "_id": 2
+  }
+}
+{
+  "name": "Yellow furballs"
+}
+
+
+//QUERY with results with 2 matchss
+//GET /tutorial/my_type/_search
+{
+  "query": {
+    "match": {
+      "name": "brown fo"
+    }
+  }
+}
+
+
+//GET /tutorial/my_type/_validate/query?explain
+{
+  "query": {
+    "match": {
+      "name": "brown fo"
+    }
+  }
+}
+
+//setting the search analyzer at mapping point
+//PUT (as it is an update) tutorial/my_type/_mapping
+{
+  "my_type": {
+    "properties": {
+      "name": {
+        "type": "string",
+        "analyzer": "autocomplete",
+        "search_analyzer": "standard"
+      }
+    }
+  }
+}

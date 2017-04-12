@@ -1,0 +1,320 @@
+{
+   "settings": {
+      "max_result_window": 20000,
+      "analysis" : {
+        "filter" : {
+          "autocomplete_filter" : {
+            "type" : "nGram",
+            "min_gram" : 1,
+            "max_gram" : 50
+          }
+        },
+		"analyzer" : {
+          "autocomplete": {
+            "type": "custom",
+            "tokenizer": "whitespace",
+            "filter": [
+			  "lowercase",
+              "autocomplete_filter"
+            ]
+          }
+        }
+      }
+	},
+	"mappings": {
+      "distributionCopies": {
+        "properties": {
+          "sequence": {
+            "type": "long"
+          },
+          "environment": {
+            "type": "string",
+            "analyzer": "keyword"
+          },
+          "code": {
+            "type": "string",
+            "analyzer": "autocomplete"
+          },
+          "name": {
+            "type": "string",
+            "analyzer": "keyword"
+          },
+          "copies": {
+            "type": "long"
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "description": {
+            "type": "string",
+            "analyzer": "keyword"
+          },
+          "version": {
+            "type": "string",
+            "analyzer": "keyword"
+          },
+          "dataOwner": {
+            "type": "string",
+            "analyzer": "keyword"
+          },
+          "lockCode": {
+            "type": "string",
+            "analyzer": "keyword"
+          },
+          "rules": {
+            "type": "nested",
+            "properties": {
+              "sequence": {
+                "type": "long"
+              },
+              "code": {
+                "type": "string",
+                "analyzer": "autocomplete"
+              },
+              "expression": {
+                "type": "string",
+                "analyzer": "autocomplete"
+              },
+              "dataOwner": {
+                "type": "string",
+                "analyzer": "keyword"
+              },
+              "lockCode": {
+                "type": "string",
+                "analyzer": "keyword"
+              }
+            }
+          },
+          "backends": {
+            "type": "nested",
+            "properties": {
+              "code": {
+                "type": "string",
+                "analyzer": "autocomplete"
+              },
+              "direction": {
+                "type": "string",
+                "analyzer": "autocomplete"
+              },
+              "dataOwner": {
+                "type": "string",
+                "analyzer": "keyword"
+              },
+              "lockCode": {
+                "type": "string",
+                "analyzer": "keyword"
+              }
+            }
+          }
+        }
+      },
+      "backends": {
+        "properties": {
+          "code": {
+            "type": "string",
+            "analyzer": "autocomplete"
+          },
+          "pkDirection": {
+            "type": "string",
+            "analyzer": "autocomplete"
+          },
+          "pkCode": {
+            "type": "string",
+            "analyzer": "autocomplete"
+          },
+          "name": {
+            "type": "string",
+            "analyzer": "keyword"
+          },
+          "description": {
+            "type": "string",
+            "analyzer": "keyword"
+          },
+          "version": {
+            "type": "string",
+            "analyzer": "keyword"
+          },
+          "environment": {
+            "type": "string",
+            "analyzer": "keyword"
+          }
+        }
+      },
+      "assignments": {
+        "properties": {
+          "sequence": {
+            "type": "long"
+          },
+          "code": {
+            "type": "string",
+            "analyzer": "autocomplete"
+          },
+          "backendPrimaryKey": {
+            "properties": {
+              "code": {
+                "type": "string",
+                "analyzer": "autocomplete"
+              },
+              "direction": {
+                "type": "string",
+                "analyzer": "autocomplete"
+              }
+            }
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "version": {
+            "type": "string",
+            "analyzer": "keyword"
+          },
+          "environment": {
+            "type": "string",
+            "analyzer": "keyword"
+          },
+          "rules": {
+            "type": "nested",
+            "properties": {
+              "sequence": {
+                "type": "long"
+              },
+              "code": {
+                "type": "string",
+                "analyzer": "autocomplete"
+              },
+              "expression": {
+                "type": "string",
+                "analyzer": "autocomplete"
+              },
+              "dataOwner": {
+                "type": "string",
+                "analyzer": "keyword"
+              },
+              "lockCode": {
+                "type": "string",
+                "analyzer": "keyword"
+              }
+            }
+          }
+        }
+      },
+      "feedbackDtnCopies": {
+        "properties": {
+          "sequence": {
+          "type": "long"
+          },
+          "environment": {
+          "type": "string",
+          "analyzer": "keyword"
+          },
+          "code": {
+          "type": "string",
+          "analyzer": "autocomplete"
+          },
+          "name": {
+          "type": "string",
+          "analyzer": "keyword"
+          },
+          "copies": {
+          "type": "long"
+          },
+          "active": {
+          "type": "boolean"
+          },
+          "description": {
+          "type": "string",
+          "analyzer": "keyword"
+          },
+          "version": {
+          "type": "string",
+          "analyzer": "keyword"
+          },
+          "dataOwner": {
+          "type": "string",
+          "analyzer": "keyword"
+          },
+          "lockCode": {
+          "type": "string",
+          "analyzer": "keyword"
+          },
+          "rules": {
+            "type": "nested",
+            "properties": {
+              "sequence": {
+                "type": "long"
+              },
+              "code": {
+                "type": "string",
+                "analyzer": "autocomplete"
+              },
+              "expression": {
+                "type": "string",
+                "analyzer": "autocomplete"
+              },
+              "dataOwner": {
+                "type": "string",
+                "analyzer": "keyword"
+              },
+              "lockCode": {
+                "type": "string",
+                "analyzer": "keyword"
+              }
+            }
+          },
+          "backends": {
+            "type": "nested",
+            "properties": {
+              "code": {
+                "type": "string",
+                "analyzer": "autocomplete"
+              },
+              "direction": {
+                "type": "string",
+                "analyzer": "autocomplete"
+              },
+              "dataOwner": {
+                "type": "string",
+                "analyzer": "keyword"
+              },
+              "lockCode": {
+                "type": "string",
+                "analyzer": "keyword"
+              }
+            }
+          }
+        }
+      },
+      "rules": {
+        "properties": {
+          "code": {
+            "type": "string",
+            "analyzer": "autocomplete"
+          },
+          "expression": {
+            "type": "string",
+            "analyzer": "autocomplete"
+          },
+          "version": {
+            "type": "string",
+            "analyzer" : "keyword"
+          },
+          "environment": {
+            "type": "string",
+            "analyzer" : "keyword"
+          },
+          "assigned": {
+            "type": "boolean",
+            "index": "not_analyzed"
+          },
+          "valid": {
+            "type": "boolean",
+            "index": "not_analyzed"
+          },
+          "validMessage": {
+            "type": "string",
+            "index": "not_analyzed"
+          }
+        }
+      }
+    }
+}

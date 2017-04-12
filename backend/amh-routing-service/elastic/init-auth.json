@@ -1,0 +1,4 @@
+
+curl -v -X DELETE http://127.0.0.1:9200/authentication
+curl -v -X PUT http://127.0.0.1:9200/authentication -d @./authentication-schema.json
+curl -v -X POST http://127.0.0.1:9200/authentication/routingusers/_bulk -d @./autho-data.txt

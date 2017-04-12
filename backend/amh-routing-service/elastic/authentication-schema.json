@@ -1,0 +1,64 @@
+//DELETE authentication
+
+//PUT authentication
+{
+    "settings": {
+      "analysis" : {
+        "filter" : {
+          "autocomplete_filter" : {
+            "type" : "nGram",
+            "min_gram" : 1,
+            "max_gram" : 50
+          }
+        },
+        "analyzer" : {
+          "autocomplete": {
+            "type": "custom",
+            "tokenizer": "whitespace",
+            "filter": [
+              "lowercase",
+              "autocomplete_filter"
+            ]
+          }
+        }
+      }
+    },
+    "mappings": {
+      "routingusers": {
+        "properties": {
+          "username": {
+            "type": "string",
+            "analyzer": "autocomplete"
+          },
+          "oldPassword": {
+            "type": "string",
+            "index": "not_analyzed"
+          },
+          "newPassword": {
+            "type": "string",
+            "index": "not_analyzed"
+          },
+          "firstName": {
+            "type": "string",
+            "analyzer": "autocomplete"
+          },
+          "lastName": {
+            "type": "string",
+            "analyzer": "autocomplete"
+          },
+          "active": {
+            "type": "boolean",
+            "index": "not_analyzed"
+          },
+          "profiles": {
+            "type": "string",
+            "analyzer": "autocomplete"
+          },
+          "permissions": {
+            "type": "string",
+            "index": "not_analyzed"
+          }
+        }
+      }
+    }
+  }

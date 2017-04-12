@@ -1,0 +1,165 @@
+{
+   "settings": {
+      "analysis" : {
+        "filter" : {
+          "autocomplete_filter" : {
+            "type" : "nGram",
+            "min_gram" : 2,
+            "max_gram" : 50
+          }
+        },
+		"analyzer" : {
+          "autocomplete": {
+            "type": "custom",
+            "tokenizer": "whitespace",
+            "filter": [
+			  "lowercase",
+              "autocomplete_filter"
+            ]
+          }
+        }
+      }
+	},
+	"mappings": {
+      "sibes-rules": {
+        "properties": {
+          "functions": {
+            "type": "nested",
+            "properties": {
+              "id": {
+                "type": "long",
+                "index": "not_analyzed"
+              },
+              "code": {
+                "type": "string",
+                "index": "not_analyzed"
+              },
+              "description": {
+                "type": "string",
+                "index": "not_analyzed"
+              }
+            }
+          },
+          "actions": {
+            "type": "nested",
+            "properties": {
+              "text": {
+                "type": "string",
+                "index": "not_analyzed"
+              },
+              "id": {
+                "type": "long",
+                "index": "not_analyzed"
+              },
+              "code": {
+                "type": "string",
+                "index": "not_analyzed"
+              },
+              "children": {
+                "type": "nested",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "index": "not_analyzed"
+                  },
+                  "id": {
+                    "type": "long",
+                    "index": "not_analyzed"
+                  },
+                  "code": {
+                    "type": "string",
+                    "index": "not_analyzed"
+                  }
+                }
+              }
+            }
+          },
+          "types": {
+            "type": "nested",
+            "properties": {
+              "text": {
+                "type": "string",
+                "index": "not_analyzed"
+              },
+              "id": {
+                "type": "long",
+                "index": "not_analyzed"
+              },
+              "code": {
+                "type": "string",
+                "index": "not_analyzed"
+              },
+              "children": {
+                "type": "nested",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "index": "not_analyzed"
+                  },
+                  "id": {
+                    "type": "long",
+                    "index": "not_analyzed"
+                  },
+                  "code": {
+                    "type": "string",
+                    "index": "not_analyzed"
+                  }
+                }
+              }
+            }
+          },
+          "units": {
+            "type": "nested",
+            "properties": {
+              "text": {
+                "type": "string",
+                "index": "not_analyzed"
+              },
+              "id": {
+                "type": "long",
+                "index": "not_analyzed"
+              },
+              "code": {
+                "type": "string",
+                "index": "not_analyzed"
+              }
+            }
+          },
+          "interventions": {
+            "type": "nested",
+            "properties": {
+              "text": {
+                "type": "string",
+                "index": "not_analyzed"
+              },
+              "id": {
+                "type": "long",
+                "index": "not_analyzed"
+              },
+              "code": {
+                "type": "string",
+                "index": "not_analyzed"
+              }
+            }
+          },
+          "priorities": {
+            "type": "nested",
+            "properties": {
+              "text": {
+                "type": "string",
+                "index": "not_analyzed"
+              },
+              "id": {
+                "type": "long",
+                "index": "not_analyzed"
+              },
+              "code": {
+                "type": "string",
+                "index": "not_analyzed"
+              }
+            }
+          }
+        }
+      }
+    }
+}

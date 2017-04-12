@@ -1,0 +1,20 @@
+select * from "AMH_BECONFIG";
+select * from "AMH_BE_CH";
+select * from "AMH_BE_CH_AS_SEL_RU";
+select * from "AMH_BE_CH_AS_SEL_TAB";
+select * from "AMH_BL_CONFIG";
+select * from "AMH_DT_CP_SEL_TAB";
+select * from "AMH_DT_CP_SEL_TAB_MCD";
+select * from "AMH_DT_CP_SEL_TAB_RU";
+select * from "AMH_FB_DT_CP_SEL_TAB";
+select * from "AMH_FB_DT_CP_SEL_TAB_MFD";
+select * from "AMH_FB_DT_CP_SEL_TAB_RU";
+select * from "AMH_GW_RU_CRIT";
+select * from "AMH_ML";
+select * from "AMH_ML_EN";
+select * from "AMH_ML_EN_RU";
+select * from "AMH_WL_CONFIG";
+
+delete from "AMH_BE_CH_AS_SEL_RU";
+delete from "AMH_BECONFIG";
+delete from "AMH_GW_RU_CRIT";

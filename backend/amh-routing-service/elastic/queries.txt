@@ -1,0 +1,271 @@
+//on Nested object
+{
+  "query": {
+    "bool": {
+      "should": [
+        {
+          "nested": {
+            "path": "rules",
+            "query": {
+              "bool": {
+                "must": [
+                  {
+                    "match": {
+                      "rules.schemas": {
+                        "query": "M",
+                        "analyzer": "standard",
+                        "operator": "and"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}
+
+//POST amhrouting/rules/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "match": {
+            "code": {
+              "query": "de",
+              "analyzer": "standard",
+              "operator": "and"
+            }
+          }
+        },
+        {
+          "match": {
+            "rules.expression": {
+              "query": "sog",
+              "analyzer": "standard",
+              "operator": "and"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "from": 0,
+  "size": 20,
+  "sort": [
+    {
+      "sequence": {
+        "order": "asc"
+      }
+    }
+  ]
+}
+
+//POST amhrouting/assignments/_search
+{
+  "query": {
+    "bool": {
+      "should": [
+        {
+          "match": {
+            "code": {
+              "query": "de",
+              "analyzer": "standard",
+              "operator": "and"
+            }
+          }
+        },
+        {
+          "match": {
+            "rules.expression": {
+              "query": "sese",
+              "analyzer": "standard",
+              "operator": "and"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "from": 0,
+  "size": 100,
+  "sort": [
+    {
+      "sequence": {
+        "order": "asc"
+      }
+    },
+    {
+      "code": {
+        "order": "asc"
+      }
+    }
+  ]
+}
+
+POST routing/points/_search?size=50
+{
+  "query": {
+    "nested": {
+      "path": "rules",
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "match": {
+                "rules.description": {
+                  "query": "ZYAEBG",
+                  "analyzer": "standard"
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}
+
+PUT referentials/sibes-rules/v1
+{
+    "interventions": [
+		{ "text": "Free format", "code":"INTV_FREE_FORMAT", "id":0},
+		{ "text": "No Intervention", "code":"INTV_NO_INTV", "id": 1}
+	],
+	"types" : [
+		{ "text": "Notification", "id": 0, "code":"INST_NOTIFICATION", "children": [{ "text": "Transmission", "code":"TRANSMISSION", "id": 101 },{ "text": "Info", "code":"INFO", "id": 102 }]},
+		{"text":"Copy","id":1,"code":"INST_TYPE_COPY", "children":[]}
+	],
+	"units": [
+		{ "text": "Keep current", "code":"KEEP_CURRENT", "id": 0 },
+		{ "text": "forrward", "code":"FORWARD", "id":1}
+	],
+	"priorities" : [
+		{ "text": "Keep current", "code":"KEEP_CURRENT" ,"id": 0 },
+		{ "text": "High priority", "code":"HIGH_PRIORITY", "id":1}
+	],
+	"actions": [
+		{ "text": "None", "id": 0, "code":"NONE", "children": []},
+		{ "text": "Dispose to", "code":"ACTION_TYPE_ROUTING_POINT", "id":1,"children": [{ "text": "SARMTR", "code":"SARMTR", "id": 11 },{ "text": "EMRGZR", "code":"EMRGZR", "id": 12 },{ "text": "SEDED", "code":"SEDED", "id": 13 },{ "text": "MRTTRE", "code":"MRTTRE", "id": 14 }]},
+		{ "text": "Complete", "id": 2, "code":"ACTION_TYPE_COMPLETE", "children": []},
+		{ "text": "To adresse", "id": 3, "code":"ACTION_TYPE_ADDRESSEE", "children": []}
+	],
+	"functions":[
+		{ "description": "Success", "id": 1, "code":"SUCCESS"},
+		{ "description": "Failure", "id": 2, "code":"FAILURE"},
+		{ "description": "Inactive correspondent", "id": 3, "code":"INACTIVE_CORRESPONDENT"},
+		{ "description": "Disposition Error", "id": 4, "code":"DISPOSITION_ERROR"},
+		{ "description": "Not delivered", "id": 5, "code":"NOT_DELIVERED"},
+		{ "description": "Delayed delivery", "id": 6, "code":"DELAYED_DELIVERY"},
+		{ "description": "Authorisation does not allow message", "id": 7, "code":"AUTHORISATION_DOES_NOT_ALLOW_MESSAGE"},
+		{ "description": "Authorisation not in validity period", "id": 8, "code":"AUTHORISATION_NOT_IN_VALIDITY_PERIOD"},
+		{ "description": "Authorisation not enabled", "id": 9, "code":"AUTHORISATION_NOT_ENABLED"},
+		{ "description": "Signature Auth. failure", "id": 10, "code":"SIGNATURE_AUTH_FAILURE"},
+		{ "description": "Not Authorised by RMA", "id": 11, "code":"NOT_AUTHORISED_BY_RMA"},
+		{ "description": "Invalid digest", "id": 12, "code":"INVALID_DIGEST"},
+		{ "description": "Invalid Sign DN", "id": 13, "code":"INVALID_SIGN_DN"},
+		{ "description": "Invalid Certificate Policy ID", "id": 14, "code":"INVALID_CERTIFICATE_POLICY_ID"},
+		{ "description": "FIN-Copy service bypassed", "id": 15, "code":"FIN-COPY_SERVICE_BYPASSED"},
+		{ "description": "Authorisation not present", "id": 16, "code":"AUTHORISATION_NOT_PRESENT"},
+		{ "description": "Validation Error", "id": 17, "code":"VALIDATION_ERROR"},
+		{ "description": "No authorisation", "id": 18, "code":"NO_AUTHORISATION"},
+		{ "description": "Original broadcast", "id": 19, "code":"ORIGINAL_BROADCAST"},
+		{ "description": "Delivered", "id": 20, "code":"DELIVERED"},
+		{ "description": "Nacked", "id": 21, "code":"NACKED"},
+		{ "description": "Signature verification failure", "id": 22, "code":"SIGNATURE_VERIFICATION_FAILURE"}
+	]
+}
+
+
+POST referentials/interventions/_bulk
+{"index":{"_id":"NONE"}}
+{ "text": "None", "code":"NONE", "id": 0 }
+{"index":{"_id":"ACTION_TYPE_ROUTING_POINT"}}
+{ "text": "Dispose to", "code":"ACTION_TYPE_ROUTING_POINT", "id":1}
+{"index":{"_id":"ACTION_TYPE_COMPLETE"}}
+{ "text": "Complete", "code":"ACTION_TYPE_COMPLETE", "id": 2}
+{"index":{"_id":"ACTION_TYPE_ADDRESSEE"}}
+{ "text": "To adresse", "code":"ACTION_TYPE_ADDRESSEE", "id": 3}
+
+
+POST referentials/types/_bulk
+{"index":{"_id":"NONE"}}
+{ "text": "None", "id": 0, "code":"NONE", "children": []}
+{"index":{"_id":"ACTION_TYPE_ROUTING_POINT"}}
+{"text":"Notification","id":1,"code":"ACTION_TYPE_ROUTING_POINT", "children":[{ "text": "Transmission", "code":"SARMTR", "id": 11 },{ "text": "Autre", "code":"MRTTRE", "id": 14 }]}
+{"index":{"_id":"ACTION_TYPE_COMPLETE"}}
+{ "text": "Complete", "id": 2, "code":"ACTION_TYPE_COMPLETE", "children": []}
+{"index":{"_id":"ACTION_TYPE_ADDRESSEE"}}
+{ "text": "To adresse", "id": 3, "code":"ACTION_TYPE_ADDRESSEE", "children": []}
+
+POST referentials/units/_bulk
+{"index":{"_id":"KEEP_CURRENT"}}
+{ "text": "Keep current", "code":"KEEP_CURRENT", "id": 0 }
+{"index":{"_id":"FORWARD"}}
+{ "text": "forrward", "code":"FORWARD", "id":1}
+
+POST referentials/priorities/_bulk
+{"index":{"_id":"KEEP_CURRENT"}}
+{ "text": "Keep current", "code":"KEEP_CURRENT" ,"id": 0 }
+{"index":{"_id":"HIGH_PRIORITY"}}
+{ "text": "High priority", "code":"HIGH_PRIORITY", "id":1}
+
+POST referentials/actions/_bulk
+{"index":{"_id":"NONE"}}
+{ "text": "None", "id": 0, "code":"NONE", "children": []}
+{"index":{"_id":"ACTION_TYPE_ROUTING_POINT"}}
+{ "text": "Dispose to", "code":"ACTION_TYPE_ROUTING_POINT", "id":1,"children": [{ "text": "SARMTR", "code":"SARMTR", "id": 11 },{ "text": "EMRGZR", "code":"EMRGZR", "id": 12 },{ "text": "SEDED", "code":"SEDED", "id": 13 },{ "text": "MRTTRE", "code":"MRTTRE", "id": 14 }]}
+{"index":{"_id":"ACTION_TYPE_COMPLETE"}}
+{ "text": "Complete", "id": 2, "code":"ACTION_TYPE_COMPLETE", "children": []}
+{"index":{"_id":"ACTION_TYPE_ADDRESSEE"}}
+{ "text": "To adresse", "id": 3, "code":"ACTION_TYPE_ADDRESSEE", "children": []}
+
+POST referentials/functions/_bulk
+{"index":{"_id":"SUCCESS"}}
+{ "description": "Success", "id": 1, "code":"SUCCESS"}
+{"index":{"_id":"FAILURE"}}
+{ "description": "Failure", "id": 2, "code":"FAILURE"}
+{"index":{"_id":"INACTIVE_CORRESPONDENT"}}
+{ "description": "Inactive correspondent", "id": 3, "code":"INACTIVE_CORRESPONDENT"}
+{"index":{"_id":"DISPOSITION_ERROR"}}
+{ "description": "Disposition Error", "id": 4, "code":"DISPOSITION_ERROR"}
+{"index":{"_id":"NOT_DELIVERED"}}
+{ "description": "Not delivered", "id": 5, "code":"NOT_DELIVERED"}
+{"index":{"_id":"DELAYED_DELIVERY"}}
+{ "description": "Delayed delivery", "id": 6, "code":"DELAYED_DELIVERY"}
+{"index":{"_id":"AUTHORISATION_DOES_NOT_ALLOW_MESSAGE"}}
+{ "description": "Authorisation does not allow message", "id": 7, "code":"AUTHORISATION_DOES_NOT_ALLOW_MESSAGE"}
+{"index":{"_id":"AUTHORISATION_NOT_IN_VALIDITY_PERIOD"}}
+{ "description": "Authorisation not in validity period", "id": 8, "code":"AUTHORISATION_NOT_IN_VALIDITY_PERIOD"}
+{"index":{"_id":"AUTHORISATION_NOT_ENABLED"}}
+{ "description": "Authorisation not enabled", "id": 9, "code":"AUTHORISATION_NOT_ENABLED"}
+{"index":{"_id":"SIGNATURE_AUTH_FAILURE"}}
+{ "description": "Signature Auth. failure", "id": 10, "code":"SIGNATURE_AUTH_FAILURE"}
+{"index":{"_id":"NOT_AUTHORISED_BY_RMA"}}
+{ "description": "Not Authorised by RMA", "id": 11, "code":"NOT_AUTHORISED_BY_RMA"}
+{"index":{"_id":"INVALID_DIGEST"}}
+{ "description": "Invalid digest", "id": 12, "code":"INVALID_DIGEST"}
+{"index":{"_id":"INVALID_SIGN_DN"}}
+{ "description": "Invalid Sign DN", "id": 13, "code":"INVALID_SIGN_DN"}
+{"index":{"_id":"INVALID_CERTIFICATE_POLICY_ID"}}
+{ "description": "Invalid Certificate Policy ID", "id": 14, "code":"INVALID_CERTIFICATE_POLICY_ID"}
+{"index":{"_id":"FIN-COPY_SERVICE_BYPASSED"}}
+{ "description": "FIN-Copy service bypassed", "id": 15, "code":"FIN-COPY_SERVICE_BYPASSED"}
+{"index":{"_id":"AUTHORISATION_NOT_PRESENT"}}
+{ "description": "Authorisation not present", "id": 16, "code":"AUTHORISATION_NOT_PRESENT"}
+{"index":{"_id":"VALIDATION_ERROR"}}
+{ "description": "Validation Error", "id": 17, "code":"VALIDATION_ERROR"}
+{"index":{"_id":"NO_AUTHORISATION"}}
+{ "description": "No authorisation", "id": 18, "code":"NO_AUTHORISATION"}
+{"index":{"_id":"ORIGINAL_BROADCAST"}}
+{ "description": "Original broadcast", "id": 19, "code":"ORIGINAL_BROADCAST"}
+{"index":{"_id":"DELIVERED"}}
+{ "description": "Delivered", "id": 20, "code":"DELIVERED"}
+{"index":{"_id":"NACKED"}}
+{ "description": "Nacked", "id": 21, "code":"NACKED"}
+{"index":{"_id":"SIGNATURE_VERIFICATION_FAILURE"}}
+{ "description": "Signature verification failure", "id": 22, "code":"SIGNATURE_VERIFICATION_FAILURE"}

@@ -1,0 +1,94 @@
+put routing/_mapping/points -d
+{
+  "routing": {
+    "mappings": {
+      "points": {
+        "properties": {
+          "full": {
+            "type": "boolean"
+          },
+          "pointName": {
+            "type": "string",
+            "index" : "not_analyzed"
+          },
+          "rules": {
+            "properties": {
+              "action": {
+                "properties": {
+                  "actionOn": {
+                    "properties": {
+                      "code": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string"
+                      },
+                      "id": {
+                        "type": "long"
+                      }
+                    }
+                  },
+                  "source": {
+                    "properties": {
+                      "action": {
+                        "type": "string"
+                      },
+                      "actionOption": {
+                        "type": "string"
+                      },
+                      "intervention": {
+                        "type": "string"
+                      },
+                      "routingCode": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              },
+              "condition": {
+                "properties": {
+                  "conditionOn": {
+                    "properties": {
+                      "description": {
+                        "type": "string"
+                      },
+                      "id": {
+                        "type": "long"
+                      }
+                    }
+                  },
+                  "functions": {
+                    "properties": {
+                      "description": {
+                        "type": "string"
+                      },
+                      "id": {
+                        "type": "long"
+                      }
+                    }
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": {
+                "type": "string"
+              },
+              "routingPoint": {
+                "type": "string"
+              },
+              "schemas": {
+                "type": "string"
+              },
+              "sequence": {
+                "type": "long"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

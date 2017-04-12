@@ -1,0 +1,179 @@
+{
+   "settings": {
+      "analysis" : {
+        "filter" : {
+          "autocomplete_filter" : {
+            "type" : "nGram",
+            "min_gram" : 2,
+            "max_gram" : 50
+          }
+        },
+		"analyzer" : {
+          "autocomplete": {
+            "type": "custom",
+            "tokenizer": "whitespace",
+            "filter": [
+			  "lowercase",
+              "autocomplete_filter"
+            ]
+          }
+        }
+      }
+	},
+	"mappings": {
+      "points": {
+        "properties": {
+          "full": {
+            "type": "boolean"
+          },
+          "environment": {
+            "type": "string",
+            "analyzer": "keyword"
+          },
+          "pointName": {
+            "type": "string",
+            "analyzer": "autocomplete"
+          },
+          "version": {
+            "type": "string",
+            "analyzer": "keyword"
+          },
+          "rules": {
+            "type" : "nested",
+            "properties": {
+              "sequence": {
+                "type": "long",
+                "index" : "not_analyzed"
+              },
+              "description": {
+                "type": "string",
+                "analyzer": "autocomplete"
+              },
+              "condition": {
+                "type" : "nested",
+                "properties": {
+                  "conditionOn": {
+                    "properties": {
+                      "description": {
+                        "type": "string",
+                        "analyzer": "autocomplete"
+                      },
+                      "id": {
+                        "type": "long"
+                      }
+                    }
+                  },
+                  "functions": {
+                    "type" : "nested",
+                    "properties": {
+                      "description": {
+                        "type": "string",
+                        "analyzer": "autocomplete"
+                      },
+                      "id": {
+                        "type": "long"
+                      }
+                    }
+                  },
+                  "message": {
+                    "type": "string",
+                    "analyzer": "autocomplete"
+                  }
+                }
+              },
+              "action": {
+                "type" : "nested",
+                "properties": {
+                  "actionOn": {
+                    "type" : "nested",
+                    "properties": {
+                      "description": {
+                        "type": "string",
+                        "analyzer": "autocomplete"
+                      },
+                      "code": {
+                        "type": "string"
+                      },
+                      "id": {
+                        "type": "long"
+                      }
+                    }
+                  },
+                  "source": {
+					"type" : "nested",
+                    "properties": {
+                      "action": {
+                        "type": "string",
+                        "analyzer": "autocomplete"
+                      },
+                      "actionOption": {
+                        "type": "string",
+                        "analyzer": "autocomplete"
+                      },
+                      "intervention": {
+                        "type": "string",
+                        "analyzer": "autocomplete"
+                      },
+                      "interventionText": {
+                        "type": "string",
+                        "analyzer": "autocomplete"
+                      },
+                      "routingCode": {
+                        "type": "string",
+                        "analyzer": "autocomplete"
+                      },
+                      "unit": {
+                        "type": "string"
+                      },
+                      "priority": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "newInstance": {
+                    "type" : "nested",
+					"properties": {
+                      "instanceType": {
+                        "type": "string",
+                        "analyzer": "autocomplete"
+                      },
+                      "instanceTypeOption": {
+                        "type": "string",
+                        "analyzer": "autocomplete"
+                      },
+                      "action": {
+                        "type": "string",
+                        "analyzer": "autocomplete"
+                      },
+                      "actionOption": {
+                        "type": "string",
+                        "analyzer": "autocomplete"
+                      },
+                      "intervention": {
+                        "type": "string",
+                        "analyzer": "autocomplete"
+                      },
+                      "interventionText": {
+                        "type": "string",
+                        "analyzer": "autocomplete"
+                      },
+                      "routingCode": {
+                        "type": "string",
+                        "analyzer": "autocomplete"
+                      },
+                      "unit": {
+                        "type": "string"
+                      },
+                      "priority": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+}

@@ -1,0 +1,79 @@
+{
+  "amhrouting": {
+    "mappings": {
+      "assignments": {
+        "properties": {
+          "active": {
+            "type": "boolean"
+          },
+          "backendPrimaryKey": {
+            "properties": {
+              "code": {
+                "type": "string"
+              },
+              "direction": {
+                "type": "string"
+              }
+            }
+          },
+          "code": {
+            "type": "string"
+          },
+          "rules": {
+            "properties": {
+              "code": {
+                "type": "string"
+              },
+              "dataOwner": {
+                "type": "string"
+              },
+              "expression": {
+                "type": "string"
+              },
+              "lockCode": {
+                "type": "string"
+              },
+              "sequence": {
+                "type": "long"
+              }
+            }
+          },
+          "sequence": {
+            "type": "long"
+          }
+        }
+      },
+      "backends": {
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "pkCode": {
+            "type": "string"
+          },
+          "pkDirection": {
+            "type": "string"
+          }
+        }
+      },
+      "rules": {
+        "properties": {
+          "code": { "type" : "completion",
+            "analyzer" : "simple",
+            "search_analyzer" : "simple",
+            "payloads" : true
+          },
+          "expression": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

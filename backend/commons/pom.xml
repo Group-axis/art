@@ -1,0 +1,320 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.groupaxis.groupsuite</groupId>
+	<artifactId>groupsuite-commons</artifactId>
+	<version>1.0.1-SNAPSHOT</version>
+	<name>GroupSuite :: Commons</name>
+	<description>Commons functionality for services</description>
+
+	<properties>
+		<scala.version>2.11.8</scala.version>
+		<akka.version>2.4.4</akka.version>
+		<log4j.version>2.6.2</log4j.version>
+		<slick.version>3.1.1</slick.version>
+		<json4s.version>3.3.0</json4s.version>
+		<circe.version>0.4.1</circe.version>
+	</properties>
+
+	<dependencies>
+
+		<!-- SCALA -->
+
+		<dependency>
+			<groupId>org.scalactic</groupId>
+			<artifactId>scalactic_2.11</artifactId>
+			<version>2.2.6</version>
+		</dependency>
+		<dependency>
+			<groupId>org.scalatest</groupId>
+			<artifactId>scalatest_2.11</artifactId>
+			<version>2.2.6</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.scala-lang</groupId>
+			<artifactId>scala-compiler</artifactId>
+			<version>${scala.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.scala-lang</groupId>
+			<artifactId>scala-library</artifactId>
+			<version>${scala.version}</version>
+		</dependency>
+
+		<!-- AKKA ACTOR -->
+
+		<dependency>
+			<groupId>com.typesafe.akka</groupId>
+			<artifactId>akka-actor_2.11</artifactId>
+			<version>${akka.version}</version>
+		</dependency>
+
+		<!-- AKKA CLUSTER -->
+
+		<dependency>
+			<groupId>com.typesafe.akka</groupId>
+			<artifactId>akka-cluster_2.11</artifactId>
+			<version>${akka.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.typesafe.akka</groupId>
+			<artifactId>akka-cluster-tools_2.11</artifactId>
+			<version>${akka.version}</version>
+		</dependency>
+
+		<!-- AKKA PERSISTENCE -->
+
+		<dependency>
+			<groupId>com.typesafe.akka</groupId>
+			<artifactId>akka-persistence_2.11</artifactId>
+			<version>${akka.version}</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.github.dnvriend/akka-persistence-jdbc_2.11 -->
+		<!--<dependency>-->
+			<!--<groupId>com.github.dnvriend</groupId>-->
+			<!--<artifactId>akka-persistence-jdbc_2.11</artifactId>-->
+			<!--<version>2.4.0</version>-->
+		<!--</dependency>-->
+
+
+		<!-- AKKA HTTP -->
+
+		<dependency>
+			<groupId>com.typesafe.akka</groupId>
+			<artifactId>akka-stream_2.11</artifactId>
+			<version>${akka.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.typesafe.akka</groupId>
+			<artifactId>akka-http-experimental_2.11</artifactId>
+			<version>${akka.version}</version>
+		</dependency>
+		<!-- <dependency> <groupId>com.typesafe.akka</groupId> <artifactId>akka-http-spray-json-experimental_2.11</artifactId> 
+			<version>${akka.version}</version> </dependency> -->
+		<!-- http://mvnrepository.com/artifact/de.heikoseeberger/akka-http-json4s_2.11 -->
+
+
+		<!-- CIRCE -->
+		<dependency>
+			<groupId>de.heikoseeberger</groupId>
+			<artifactId>akka-http-circe_2.11</artifactId>
+			<version>1.6.0</version>
+		</dependency>
+		<dependency>
+			<groupId>io.circe</groupId>
+			<artifactId>circe-core_2.11</artifactId>
+			<version>${circe.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.circe</groupId>
+			<artifactId>circe-generic_2.11</artifactId>
+			<version>${circe.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.circe</groupId>
+			<artifactId>circe-parser_2.11</artifactId>
+			<version>${circe.version}</version>
+		</dependency>
+
+		<!-- JSON4S -->
+		<dependency>
+			<groupId>de.heikoseeberger</groupId>
+			<artifactId>akka-http-json4s_2.11</artifactId>
+			<version>1.6.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.json4s</groupId>
+			<artifactId>json4s-ext_2.11</artifactId>
+			<version>${json4s.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.json4s</groupId>
+			<artifactId>json4s-native_2.11</artifactId>
+			<version>${json4s.version}</version>
+		</dependency>
+
+		<!-- LEVEL DB -->
+		<dependency>
+			<groupId>org.iq80.leveldb</groupId>
+			<artifactId>leveldb</artifactId>
+			<version>0.7</version>
+			<exclusions>
+				<exclusion>
+					<groupId>com.google.guava</groupId>
+					<artifactId>guava</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.fusesource.leveldbjni</groupId>
+			<artifactId>leveldbjni-all</artifactId>
+			<version>1.8</version>
+		</dependency>
+
+		<!-- SLICK -->
+		<dependency>
+			<groupId>com.typesafe.slick</groupId>
+			<artifactId>slick_2.11</artifactId>
+			<version>${slick.version}</version>
+		</dependency>
+
+		<!-- elastic4s_2.11 -->
+		<!-- dependency> <groupId>com.sksamuel.elastic4s</groupId> <artifactId>elastic4s_2.11</artifactId> 
+			<version>1.6.0</version> </dependency -->
+		<dependency>
+			<groupId>com.sksamuel.elastic4s</groupId>
+			<artifactId>elastic4s-core_2.11</artifactId>
+			<version>2.3.0</version>
+		</dependency>
+
+
+		<!-- LOCAL OR LOCAL NEXUS SLICK-EXTENSIONS -->
+		<!--<dependency>-->
+			<!--<groupId>com.typesafe.slick</groupId>-->
+			<!--<artifactId>slick-extensions_2.11</artifactId>-->
+			<!--<version>3.1.0</version>-->
+		<!--</dependency>-->
+
+		<!-- LOCAL OR LOCAL NEXUS ORACLE DRIVER -->
+		<!--dependency>
+			<groupId>com.oracle</groupId>
+			<artifactId>ojdbc7</artifactId>
+			<version>12.1.0</version>
+		</dependency-->
+
+
+		<!-- http://mvnrepository.com/artifact/org.postgresql/postgresql -->
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>9.4.1208.jre7</version>
+		</dependency>
+
+
+		<!-- HikariCP -->
+		<dependency>
+			<groupId>com.zaxxer</groupId>
+			<artifactId>HikariCP</artifactId>
+			<version>2.4.6</version>
+		</dependency>
+
+		<!-- LSF4J & LOG4J2 -->
+		<dependency>
+			<groupId>com.typesafe.akka</groupId>
+			<artifactId>akka-slf4j_2.11</artifactId>
+			<version>${akka.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-slf4j-impl</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api-scala_2.11</artifactId>
+			<version>2.7</version>
+		</dependency>
+
+		<!-- TEST -->
+
+		<dependency>
+			<groupId>com.typesafe.akka</groupId>
+			<artifactId>akka-testkit_2.11</artifactId>
+			<version>${akka.version}</version>
+		</dependency>
+		<!-- <dependency> <groupId>junit</groupId> <artifactId>junit</artifactId> 
+			<version>4.8.2</version> <scope>test</scope> </dependency> -->
+		<dependency>
+			<groupId>org.scalatest</groupId>
+			<artifactId>scalatest_2.11</artifactId>
+			<version>2.2.6</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.4</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- http://mvnrepository.com/artifact/ch.megard/akka-http-cors_2.11 -->
+		<dependency>
+			<groupId>ch.megard</groupId>
+			<artifactId>akka-http-cors_2.11</artifactId>
+			<version>0.1.2</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<sourceDirectory>src/main/scala</sourceDirectory>
+		<testSourceDirectory>src/test/scala</testSourceDirectory>
+		<testOutputDirectory>target/test-classes</testOutputDirectory>
+		<plugins>
+			<plugin>
+				<groupId>net.alchim31.maven</groupId>
+				<artifactId>scala-maven-plugin</artifactId>
+				<version>3.2.1</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>compile</goal>
+							<goal>testCompile</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<recompileMode>incremental</recompileMode>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.3</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+
+			<!-- disable surefire -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.7</version>
+				<configuration>
+					<skipTests>true</skipTests>
+				</configuration>
+			</plugin>
+			<!-- enable scalatest -->
+			<plugin>
+				<groupId>org.scalatest</groupId>
+				<artifactId>scalatest-maven-plugin</artifactId>
+				<version>1.0</version>
+				<configuration>
+					<reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
+					<junitxml>.</junitxml>
+					<filereports>WDF TestSuite.txt</filereports>
+				</configuration>
+				<executions>
+					<execution>
+						<id>test</id>
+						<goals>
+							<goal>test</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

@@ -1,0 +1,51 @@
+﻿
+POST authentication/routingusers/_bulk
+{"index":{"_id":"204030"}}
+{"active":true,"username": "204030","oldPassword": "204030","newPassword": "","firstName": "Claire","lastName": "TOUZAC","permissions":["amh.import","amh.export","amh.read.only","amh.modify.rule","amh.modify.assignment","user.modify","user.read.only"],"profiles":[1,2,3,4]}
+{"index":{"_id":"a95843"}}
+{"active":true,"username": "a95843","oldPassword": "a95843","newPassword": "zse8520iko@","firstName": "Kevin","lastName": "Da Costa","permissions":["amh.import","amh.export","amh.read.only","amh.modify.rule","amh.modify.assignment","user.modify","user.read.only"],"profiles":[1,2,3,4]}
+{"index":{"_id":"288509"}}
+{"active":true,"username": "288509","oldPassword": "288509","newPassword": "","firstName": "Jonathan","lastName": "JOUXTEL","permissions":["amh.import","amh.export","amh.read.only","amh.modify.rule","amh.modify.assignment","user.modify","user.read.only"],"profiles":[1,2,3,4]}
+{"index":{"_id":"518693"}}
+{"active":true,"username": "518693","oldPassword": "518693","newPassword": "","firstName": "Nabil","lastName": "BEJAOUI","permissions":["amh.import","amh.export","amh.read.only","amh.modify.rule","amh.modify.assignment","user.modify","user.read.only"],"profiles":[1,2,3,4]}
+{"index":{"_id":"a77115"}}
+{"active":true,"username": "a77115","oldPassword": "a77115","newPassword": "","firstName": "Jérémy","lastName": "HIFRI","permissions":["amh.import","amh.export","amh.read.only","amh.modify.rule","amh.modify.assignment","user.modify","user.read.only"],"profiles":[1,2,3,4]}
+{"index":{"_id":"279501"}}
+{"active":true,"username": "279501","oldPassword": "279501","newPassword": "","firstName": "Michaël","lastName": "AUBRY","permissions":["amh.import","amh.export","amh.read.only","amh.modify.rule","amh.modify.assignment","user.modify","user.read.only"],"profiles":[1,2,3,4]}
+{"index":{"_id":"a69996"}}
+{"active":true,"username": "a69996","oldPassword": "a69996","newPassword": "137rdj","firstName": "Fabrice","lastName": "Labatut","permissions":["amh.import","amh.export","amh.read.only","amh.modify.rule","amh.modify.assignment","user.modify","user.read.only"],"profiles":[1,2,3,4]}
+{"index":{"_id":"375581"}}
+{"active":true,"username": "375581","oldPassword": "375581","newPassword": "","firstName": "Matthieu","lastName": "BACHIAN","permissions":["amh.import","amh.export","amh.read.only","amh.modify.rule","amh.modify.assignment","user.modify","user.read.only"],"profiles":[1,2,3,4]}
+{"index":{"_id":"testing"}}
+{"active":true,"username": "testing","oldPassword": "tesing","newPassword": "testingg","firstName": "Testing","lastName": "User","permissions":["amh.read.only","user.read.only","sibes.read.only"],"profiles":[1]}
+{"index":{"_id":"system"}}
+{"active":true,"username": "system","oldPassword": "system","newPassword": "groupsuite","firstName": "System","lastName": "User","permissions":["amh.import","amh.export","amh.read.only","amh.modify.rule","amh.modify.assignment","user.modify","user.read.only","sibes.import","sibes.export","sibes.read.only","sibes.modify.rule","sibes.modify.point"],"profiles":[1,2,3,4]}
+{"index":{"_id":"testing2"}}
+{"active":true,"username": "testing2","oldPassword": "testing2","newPassword": "123456","firstName": "Testing","lastName": "User","permissions":["amh.read.only","amh.modify.rule","amh.modify.assignment","user.modify","user.read.only"],"profiles":[1]}
+
+
+POST authentication/routingprofiles/_bulk
+{"index":{"_id":"1"}}
+{ "id":1, "name": "User_Admin", "active": true, "permissions": ["user.modify"] }
+{"index":{"_id":"2"}}
+{ "id":2, "name": "Import_Export", "active": true, "permissions": ["amh.import","amh.export"] }
+{"index":{"_id":"3"}}
+{ "id":3, "name": "Operator", "active": true, "permissions": ["amh.modify.rule", "amh.modify.assignment"] }
+{"index":{"_id":"4"}}
+{ "id":4, "name": "Read_Only", "active": true, "permissions": ["amh.read.only", "sibes.read.only"] }
+{"index":{"_id":"5"}}
+{ "id":5, "name": "Test", "active": true, "permissions": ["amh.modify.rule", "amh.modify.assignment", "sibes.modify.rule", "sibes.modify.point"] }
+
+POST authentication/routingusers/204030/_update
+a95843
+288509
+518693
+a77115
+279501
+a69996
+375581
+body => {
+  "doc": {
+    "active": false
+  }
+}

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+	<properties>
+		<property name="selectedAppender">${sys:selectedAppender}</property>
+		<property name="log-path">./logs</property>
+	</properties>
+
+	<Appenders>
+		<Console name="console">
+			<PatternLayout
+				pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5p [%-25.25c] [L.%-4L] %m%n" />
+		</Console>
+
+		<RollingFile name="RollingFile" fileName="${log-path}/update-messages.log"
+			filePattern="${log-path}/update-messages-%d{yyyy-MM-dd}-%i.log">
+			<PatternLayout>
+				<pattern>%d{yyy-MM-dd HH:mm:ss.SSS} %-5p [%-25.25C] [L.%-4L] %m%n</pattern>
+			</PatternLayout>
+			<Policies>
+				<SizeBasedTriggeringPolicy size="10 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="4" />
+		</RollingFile>
+		<RollingFile name="Errors" fileName="${log-path}/update-messages-errors.log"
+					 filePattern="${log-path}/update-messages-errors-%d{yyyy-MM-dd}-%i.log">
+			<PatternLayout>
+				<pattern>%d{yyy-MM-dd HH:mm:ss.SSS} %-5p [%-25.25C] [L.%-4L] %m%n</pattern>
+			</PatternLayout>
+			<Policies>
+				<SizeBasedTriggeringPolicy size="10 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="4" />
+		</RollingFile>	
+	</Appenders>
+
+	<Loggers>
+		<Logger name="com.groupaxis.groupsuite" level="debug" additivity="false">
+			<AppenderRef ref="${selectedAppender}" />
+			<!--<AppenderRef ref="Errors" level="error"/>-->
+		</Logger>
+
+
+		<Logger name="akka.actor.ActorSystemImpl" level="info" additivity="false">
+			<AppenderRef ref="${selectedAppender}" />
+			<AppenderRef ref="Errors" level="error"/>
+		</Logger>
+
+		<Logger name="slick.jdbc.JdbcBackend" level="info" additivity="false">
+			<AppenderRef ref="${selectedAppender}" />
+			<AppenderRef ref="Errors" level="error"/>
+		</Logger>
+
+		<Logger name="slick.jdbc.StatementInvoker" level="info" additivity="false">
+			<AppenderRef ref="${selectedAppender}" />
+			<AppenderRef ref="Errors" level="error"/>
+		</Logger>
+
+		<Root level="${sys:rootLevel}">
+			<AppenderRef ref="${selectedAppender}" />
+		</Root>
+	</Loggers>
+
+</Configuration>

@@ -1,0 +1,49 @@
+PUT referentials/sibes-rules/v1
+{
+    "interventions": [
+		{ "text": "Free format", "code":"INTV_FREE_FORMAT", "id":0},
+		{ "text": "No Intervention", "code":"INTV_NO_INTV", "id": 1}
+	],
+	"types" : [
+		{ "text": "Notification", "id": 0, "code":"INST_NOTIFICATION", "children": [{ "text": "Transmission", "code":"TRANSMISSION", "id": 101 },{ "text": "Info", "code":"INFO", "id": 102 }]},
+		{"text":"Copy","id":1,"code":"INST_TYPE_COPY", "children":[]}
+	],
+	"units": [
+		{ "text": "Keep current", "code":"KEEP_CURRENT", "id": 0 },
+		{ "text": "forrward", "code":"FORWARD", "id":1}
+	],
+	"priorities" : [
+		{ "text": "Keep current", "code":"KEEP_CURRENT" ,"id": 0 },
+		{ "text": "High priority", "code":"HIGH_PRIORITY", "id":1}
+	],
+	"actions": [
+		{ "text": "None", "id": 0, "code":"NONE", "children": []},
+		{ "text": "Dispose to", "code":"ACTION_TYPE_ROUTING_POINT", "id":1,"children": [{ "text": "SARMTR", "code":"SARMTR", "id": 11 },{ "text": "EMRGZR", "code":"EMRGZR", "id": 12 },{ "text": "SEDED", "code":"SEDED", "id": 13 },{ "text": "MRTTRE", "code":"MRTTRE", "id": 14 }]},
+		{ "text": "Complete", "id": 2, "code":"ACTION_TYPE_COMPLETE", "children": []},
+		{ "text": "To adresse", "id": 3, "code":"ACTION_TYPE_ADDRESSEE", "children": []}
+	],
+	"functions":[
+		{ "description": "Success", "id": 1, "code":"SUCCESS"},
+		{ "description": "Failure", "id": 2, "code":"FAILURE"},
+		{ "description": "Inactive correspondent", "id": 3, "code":"INACTIVE_CORRESPONDENT"},
+		{ "description": "Disposition Error", "id": 4, "code":"DISPOSITION_ERROR"},
+		{ "description": "Not delivered", "id": 5, "code":"NOT_DELIVERED"},
+		{ "description": "Delayed delivery", "id": 6, "code":"DELAYED_DELIVERY"},
+		{ "description": "Authorisation does not allow message", "id": 7, "code":"AUTHORISATION_DOES_NOT_ALLOW_MESSAGE"},
+		{ "description": "Authorisation not in validity period", "id": 8, "code":"AUTHORISATION_NOT_IN_VALIDITY_PERIOD"},
+		{ "description": "Authorisation not enabled", "id": 9, "code":"AUTHORISATION_NOT_ENABLED"},
+		{ "description": "Signature Auth. failure", "id": 10, "code":"SIGNATURE_AUTH_FAILURE"},
+		{ "description": "Not Authorised by RMA", "id": 11, "code":"NOT_AUTHORISED_BY_RMA"},
+		{ "description": "Invalid digest", "id": 12, "code":"INVALID_DIGEST"},
+		{ "description": "Invalid Sign DN", "id": 13, "code":"INVALID_SIGN_DN"},
+		{ "description": "Invalid Certificate Policy ID", "id": 14, "code":"INVALID_CERTIFICATE_POLICY_ID"},
+		{ "description": "FIN-Copy service bypassed", "id": 15, "code":"FIN-COPY_SERVICE_BYPASSED"},
+		{ "description": "Authorisation not present", "id": 16, "code":"AUTHORISATION_NOT_PRESENT"},
+		{ "description": "Validation Error", "id": 17, "code":"VALIDATION_ERROR"},
+		{ "description": "No authorisation", "id": 18, "code":"NO_AUTHORISATION"},
+		{ "description": "Original broadcast", "id": 19, "code":"ORIGINAL_BROADCAST"},
+		{ "description": "Delivered", "id": 20, "code":"DELIVERED"},
+		{ "description": "Nacked", "id": 21, "code":"NACKED"},
+		{ "description": "Signature verification failure", "id": 22, "code":"SIGNATURE_VERIFICATION_FAILURE"}
+	]
+}

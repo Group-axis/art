@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+	<properties>
+		<property name="selectedAppender">${sys:selectedAppender}</property>
+		<property name="log-path">./logs</property>
+	</properties>
+
+	<Appenders>
+		<Console name="console">
+			<PatternLayout
+				pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5p [%-10.10C] [L.%-4L] %m%n" />
+		</Console>
+
+		<RollingFile name="RollingFile" fileName="${log-path}/simulator-service.log"
+			filePattern="${log-path}/simulator-service-%d{yyyy-MM-dd}-%i.log">
+			<PatternLayout>
+				<pattern>%d{yyy-MM-dd HH:mm:ss.SSS} %-5p [%-25.25C] [L.%-4L] %m%n</pattern>
+			</PatternLayout>
+			<Policies>
+				<SizeBasedTriggeringPolicy size="30 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="4" />
+		</RollingFile>
+		<RollingFile name="Errors" fileName="${log-path}/simulator-service-errors.log"
+					 filePattern="${log-path}/simulator-service-errors-%d{yyyy-MM-dd}-%i.log">
+			<PatternLayout>
+				<pattern>%d{yyy-MM-dd HH:mm:ss.SSS} %-5p [%-25.25C] [L.%-4L] %m%n</pattern>
+			</PatternLayout>
+			<Policies>
+				<SizeBasedTriggeringPolicy size="30 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="4" />
+		</RollingFile>
+		<RollingFile name="Batch" fileName="${log-path}/batch-simulator.log"
+					 filePattern="${log-path}/batch-simulator-%d{yyyy-MM-dd}-%i.log">
+			<PatternLayout>
+				<pattern>%d{yyy-MM-dd HH:mm:ss.SSS} %-5p [%-25.25C] [L.%-4L] %m%n</pattern>
+			</PatternLayout>
+			<Policies>
+				<SizeBasedTriggeringPolicy size="30 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="4" />
+		</RollingFile>
+	</Appenders>
+
+	<Loggers>
+		<Logger name="com.groupaxis.groupsuite" additivity="false">
+			<AppenderRef ref="${selectedAppender}" level="debug"/>
+			<AppenderRef ref="Errors" level="error"/>
+		</Logger>
+
+		<Logger name="akka.actor.ActorSystemImpl"  additivity="false">
+			<AppenderRef ref="${selectedAppender}" level="info"/>
+			<AppenderRef ref="Errors" level="error"/>
+		</Logger>
+
+		<Logger name="slick.jdbc.JdbcBackend" additivity="false">
+			<AppenderRef ref="${selectedAppender}" level="info" />
+			<AppenderRef ref="Errors" level="error"/>
+		</Logger>
+		<Logger name="slick.jdbc" additivity="false">
+			<AppenderRef ref="${selectedAppender}" level="info" />
+			<AppenderRef ref="Errors" level="error"/>
+		</Logger>
+		<Logger name="com.groupaxis.groupsuite.simulator.application.services.BatchTask" level="debug"
+				additivity="false">
+			<AppenderRef ref="Batch" />
+		</Logger>
+
+		<Root level="${sys:rootLevel}">
+			<AppenderRef ref="${selectedAppender}" />
+		</Root>
+	</Loggers>
+
+</Configuration>

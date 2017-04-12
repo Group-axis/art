@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+	<properties>
+		<property name="selectedAppender">${sys:selectedAppender}</property>
+		<property name="log-path">./logs</property>
+	</properties>
+
+	<Appenders>
+		<Console name="console">
+			<PatternLayout
+				pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5p [%-10.10C] [L.%-4L] %m%n" />
+		</Console>
+
+		<RollingFile name="RollingFile" fileName="${log-path}/audit-service.log"
+			filePattern="${log-path}/audit-service-%d{yyyy-MM-dd}-%i.log">
+			<PatternLayout>
+				<pattern>%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %-5p [%-10.10C] [L.%-4L] %m%n</pattern>
+			</PatternLayout>
+			<Policies>
+				<SizeBasedTriggeringPolicy size="30 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="4" />
+		</RollingFile>
+	</Appenders>
+
+	<Loggers>
+		<Logger name="com.groupaxis.groupsuite.audit" level="debug"
+				additivity="false">
+			<AppenderRef ref="${selectedAppender}" />
+		</Logger>
+
+		<Logger name="akka.actor.ActorSystemImpl" level="debug"
+				additivity="false">
+			<AppenderRef ref="${selectedAppender}" />
+		</Logger>
+
+		<Logger name="slick.jdbc.JdbcBackend" level="debug"
+				additivity="false">
+			<AppenderRef ref="${selectedAppender}" />
+		</Logger>
+		<Logger name="slick.jdbc" level="debug"
+				additivity="false">
+			<AppenderRef ref="${selectedAppender}" />
+		</Logger>
+
+		<Root level="${sys:rootLevel}">
+			<AppenderRef ref="${selectedAppender}" />
+		</Root>
+	</Loggers>
+
+</Configuration>

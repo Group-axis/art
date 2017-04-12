@@ -1,0 +1,90 @@
+{
+  "settings": {
+    "analysis" : {
+      "filter" : {
+        "autocomplete_filter" : {
+          "type" : "nGram",
+          "min_gram" : 2,
+          "max_gram" : 50
+        }
+      },
+      "analyzer" : {
+        "autocomplete": {
+          "type": "custom",
+          "tokenizer": "whitespace",
+          "filter": [
+            "lowercase",
+            "autocomplete_filter"
+          ]
+        }
+      }
+    }
+  },
+  "mappings": {
+      "amh": {
+        "properties": {
+          "content": {
+            "type": "string",
+            "analyzer": "autocomplete"
+          },
+          "creationDate": {
+            "type": "long",
+            "index": "not_analyzed"
+          },
+          "group": {
+            "type": "string",
+            "index": "not_analyzed"
+          },
+          "id": {
+            "type": "string",
+            "index": "not_analyzed"
+          },
+          "itemMap": {
+            "type": "string",
+            "index": "not_analyzed"
+          },
+          "messages": {
+            "type" : "nested",
+            "properties": {
+              "content": {
+                "type": "string",
+                "analyzer": "autocomplete"
+              },
+              "creationDate": {
+                "type": "long",
+                "index": "not_analyzed"
+              },
+              "group": {
+                "type": "string",
+                "index": "not_analyzed"
+              },
+              "id": {
+                "type": "string",
+                "index": "not_analyzed"
+              },
+              "itemMap": {
+                "type": "string",
+                "index": "not_analyzed"
+              },
+              "name": {
+                "type": "string",
+                "analyzer": "autocomplete"
+              },
+              "userId": {
+                "type": "string",
+                "index": "not_analyzed"
+              }
+            }
+          },
+          "name": {
+            "type": "string",
+            "analyzer": "autocomplete"
+          },
+          "userId": {
+            "type": "string",
+            "index": "not_analyzed"
+          }
+        }
+      }
+    }
+}

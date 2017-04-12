@@ -1,0 +1,11 @@
+{
+  
+  "backUrl": "https://127.0.0.1/apigateway/akka",
+  "esBackUrl": "https://127.0.0.1/apigateway/es",
+  "saaBackUrl" : "https://127.0.0.1/apigateway/sibes",
+  "simulationBackUrl" : "https://127.0.0.1/apigateway/simulation",
+  "auditBackUrl" : "https://127.0.0.1/apigateway/audit",
+  "clientImportDir":"c:/amh/imports",
+  "max_instant_messages": 10000,
+  "max_instant_messages_alert":25000
+}

@@ -1,0 +1,258 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.groupaxis.groupsuite</groupId>
+    <artifactId>groupsuite-audit-service</artifactId>
+    <version>1.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <name>GroupSuite :: Audit Service</name>
+
+    <properties>
+        <groupsuite.tools.version>1.0.1-SNAPSHOT</groupsuite.tools.version>
+        <groupsuite.persistence.version>1.0.1-SNAPSHOT</groupsuite.persistence.version>
+        <audit.write.model.version>1.0.1-SNAPSHOT</audit.write.model.version>
+        <akka.version>2.4.4</akka.version>
+        <log4j.version>2.6.2</log4j.version>
+        <json4s.version>3.3.0</json4s.version>
+    </properties>
+
+    <dependencies>
+
+        <!-- GROUPSUITE -->
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>groupsuite-tools</artifactId>
+            <version>${groupsuite.tools.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>groupsuite-audit-write-model</artifactId>
+            <version>${audit.write.model.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>groupsuite-persistence</artifactId>
+            <version>${groupsuite.persistence.version}</version>
+        </dependency>
+
+        <!-- TEST -->
+        <!-- TODO: CHECK WHY NEED TO BE ADDED HERE, it should be defined just in the pom.parent -->
+        <dependency>
+            <groupId>org.scalatest</groupId>
+            <artifactId>scalatest_2.11</artifactId>
+            <version>3.0.0</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- AKKA CLUSTER -->
+
+        <dependency>
+            <groupId>com.typesafe.akka</groupId>
+            <artifactId>akka-cluster_2.11</artifactId>
+            <version>${akka.version}</version>
+        </dependency>
+
+        <!-- LSF4J & LOG4J2 -->
+        <dependency>
+            <groupId>com.typesafe.akka</groupId>
+            <artifactId>akka-slf4j_2.11</artifactId>
+            <version>${akka.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j-impl</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api-scala_2.11</artifactId>
+            <version>2.7</version>
+        </dependency>
+        <!-- AKKA HTTP -->
+
+        <dependency>
+            <groupId>com.typesafe.akka</groupId>
+            <artifactId>akka-http-spray-json-experimental_2.11</artifactId>
+            <version>${akka.version}</version>
+        </dependency>
+
+        <!-- ELASTIC4S_2.11 -->
+
+        <dependency>
+            <groupId>com.sksamuel.elastic4s</groupId>
+            <artifactId>elastic4s-core_2.11</artifactId>
+            <version>2.3.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sksamuel.elastic4s</groupId>
+            <artifactId>elastic4s-jackson_2.11</artifactId>
+            <version>2.3.0</version>
+        </dependency>
+
+        <!-- JSON4S -->
+        <dependency>
+            <groupId>de.heikoseeberger</groupId>
+            <artifactId>akka-http-json4s_2.11</artifactId>
+            <version>1.10.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.json4s</groupId>
+            <artifactId>json4s-ext_2.11</artifactId>
+            <version>${json4s.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.json4s</groupId>
+            <artifactId>json4s-native_2.11</artifactId>
+            <version>${json4s.version}</version>
+        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.json4s</groupId>-->
+            <!--<artifactId>json4s-jackson_2.11</artifactId>-->
+            <!--<version>${json4s.version}</version>-->
+        <!--</dependency>-->
+
+        <!-- http://mvnrepository.com/artifact/ch.megard/akka-http-cors_2.11 -->
+        <dependency>
+            <groupId>ch.megard</groupId>
+            <artifactId>akka-http-cors_2.11</artifactId>
+            <version>0.1.2</version>
+        </dependency>
+
+    </dependencies>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>scala-tools.org</id>
+            <name>Scala-tools Maven2 Repository</name>
+            <url>http://scala-tools.org/repo-releases</url>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <build>
+        <sourceDirectory>src/main/scala</sourceDirectory>
+        <testSourceDirectory>src/test/scala</testSourceDirectory>
+        <testOutputDirectory>target/test-classes</testOutputDirectory>
+        <plugins>
+            <plugin>
+                <groupId>net.alchim31.maven</groupId>
+                <artifactId>scala-maven-plugin</artifactId>
+                <version>3.2.1</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compile</goal>
+                            <goal>testCompile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <recompileMode>incremental</recompileMode>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.3</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+
+            <!-- disable surefire -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.7</version>
+                <configuration>
+                    <skipTests>true</skipTests>
+                </configuration>
+            </plugin>
+            <!-- enable scalatest -->
+            <!--plugin
+                <groupId>org.scalatest</groupId>
+                <artifactId>scalatest-maven-plugin</artifactId>
+                <version>1.0</version>
+                <configuration>
+                    <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
+                    <junitxml>.</junitxml>
+                    <filereports>WDF TestSuite.txt</filereports>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>test</id>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin-->
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>com.groupaxis.groupsuite.audit.AuditApp</mainClass>
+                        </manifest>
+                    </archive>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>2.4.1</version>
+                <executions>
+                    <!-- Run shade goal on package phase -->
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <finalName>audit-service-1.1-RELEASE</finalName>
+                            <shadedArtifactAttached>true</shadedArtifactAttached>
+                            <shadedClassifierName>allinone</shadedClassifierName>
+                            <artifactSet>
+                                <includes>
+                                    <include>*:*</include>
+                                </includes>
+                            </artifactSet>
+                            <transformers>
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                                    <resource>reference.conf</resource>
+                                </transformer>
+                                <!-- add Main-Class to manifest file -->
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>com.groupaxis.groupsuite.audit.AuditApp</mainClass>
+                                </transformer>
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+                            </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+
+</project>

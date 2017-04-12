@@ -1,0 +1,10 @@
+{
+  "backUrl": "https://art.groupaxis.fr/apigateway/amh",
+  "esBackUrl": "https://art.groupaxis.fr/apigateway/es",
+  "saaBackUrl" : "https://art.groupaxis.fr/apigateway/saa",
+  "simulationBackUrl" : "https://art.groupaxis.fr/apigateway/simulation",
+  "auditBackUrl" : "https://art.groupaxis.fr/apigateway/audit",
+  "clientImportDir":"c:/amh/imports",
+  "max_instant_messages": 100,
+  "max_instant_messages_alert":101
+}
