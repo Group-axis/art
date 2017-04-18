@@ -1,0 +1,27 @@
+<!--main content start-->
+<input [(ngModel)]="selectedElement.pointName" 
+    (keyup)="updateElements($event.target.value)" style="margin:5px 5px 10px 0px;"
+/> &nbsp;
+<i class="fa fa-search" aria-hidden="true"></i> 
+<!---->
+<div style="height:200px; overflow: auto; z-index:200;" class="suggestions" *ngIf="elements.length > 0">
+    <!--*ngFor="let item of assignments"-->
+    <!--<ul >
+        <li>-->
+            <table style="width:100%;">
+                <!--<thead>
+                    <tr>
+                        <th style="width:15%;"> </th>
+                        <th style="width:20%;"> </th>
+                        <th style="width:65%;"> </th>
+                    </tr>
+                </thead>-->
+                <tbody>
+                    <tr *ngFor="let item of elements" (click)="selectElement(item)"> 
+                        <td style="width:100%;"> <b>{{item.pointName.toUpperCase()}}</b> </td>
+                    </tr>
+                </tbody>
+            </table>
+        <!--</li>
+    </ul>-->
+</div>

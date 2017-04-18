@@ -1,0 +1,167 @@
+<!--main content start-->
+<section id="main-content">
+    <section class="wrapper">
+        <menu-header [header-menu]="menuConfig"></menu-header>
+
+        <div class="row">
+            <div class="col-sm-12 col-md-7 col-lg-7">
+                <message-handler [selected-messages]="loadedParamSelectedMessages" (messasgeSelectedChange)="actionMessageSelection($event)"></message-handler>
+            </div>
+            <div class="col-sm-12 col-md-5 col-lg-5">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"> {{ totalSelectedRules }} Rule(s) selected </h3>
+                    </div>
+                    <div class="panel-body">
+                        <amh-selection-table style="padding:0px;" class="col-sm-12 col-md-12 col-lg-12" [default-option]="defaultOption" [options]="selectionTables" (tableSelected)="actionUpdateSelectionTable($event)">
+                        </amh-selection-table>
+                        <hr style="border-bottom: 1px solid #111;">
+                        <amh-assignment-search 
+                            [default-code]="assignmentTextFilter" 
+                            [assignment-type]="defaultOption.id" 
+                            (assignmentSelected)="actionAssignmentSelected($event)"> </amh-assignment-search>
+
+                        <table style="table-layout:fixed; word-wrap: break-word;" 
+                                class="table table-striped table-bordered table-hover table-condensed table-responsive color-black" 
+                                [mfData]="selectedAssignments" #assignTable="mfDataTable" [mfRowsOnPage]="2">
+                            <thead>
+                                <tr>
+                                    <th style="width: 15%"> Action </th>
+                                    <th style="width: 15%"> Seq </th>
+                                    <th style="width: 30%"> Code </th>
+                                    <th style="width: 40%"> Backends </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let assign of assignTable.data">
+                                    <td>&nbsp; 
+                                        <i class="fa fa-times image-pointer" aria-hidden="true" (click)="actionDeleteAssign(assign)" style="font-size:1.5em;"></i>
+                                    </td>
+                                    <td>{{assign.sequence }}</td>
+                                    <td>{{assign.code | uppercase }}</td>
+                                    <td>{{assign.backendCodeList() }}</td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr> <td colspan="4"> <mfBootstrapPaginator [rowsOnPageSet]="[10]"></mfBootstrapPaginator></td></tr>
+                            </tfoot>
+                        </table>
+                        <hr style="border-bottom: 1px solid #111;">
+                        <table style="table-layout:fixed; word-wrap: break-word;" 
+                                class="table table-striped table-bordered table-hover table-condensed table-responsive color-black" 
+                                [mfData]="assignment.rules" #ruleTable="mfDataTable" [mfRowsOnPage]="4">
+                            <thead>
+                                <tr>
+                                    <th style="width: 5%"> <input #checkbox (click)="actionRuleMultiSelection($event.target.checked)" [(checked)]="selectAllRules" type="checkbox"/> </th>
+                                    <th style="width: 20%"> Seq </th>
+                                    <th style="width: 75%"> Code </th>
+                                    <!--<th style="width: 40%"> Expressions </th>-->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let rule of ruleTable.data">
+                                    <td><input (click) = "actionRuleSelection(rule, $event.target.checked)" [checked]="rule.selected" type="checkbox"/></td>
+                                    <td>{{rule.sequence }}</td>
+                                    <td>{{rule.code | uppercase }}</td>
+                                    <!--<td>{{rule.expression | limit:35 }}</td>-->
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr> <td colspan="3"> <mfBootstrapPaginator [rowsOnPageSet]="[10, 25, 50]"></mfBootstrapPaginator></td></tr>
+                            </tfoot>
+                        </table>
+                        <hr style="border-bottom: 1px solid #111;">
+                        <div class="row">
+                            <div class="col-sm-2 col-md-2 col-lg-2"> </div>
+                            <div class="col-sm-8 col-md-8 col-lg-8 btn-group" style="border:0px blue solid;" >
+                                <label  class=" btn btn-default"  [(ngModel)]="selectedMatch" btnRadio="1">First Match</label>
+                                <label class=" btn btn-default " [(ngModel)]="selectedMatch"  btnRadio="2">Match All</label>
+                            </div>
+                            <div class="col-sm-2 col-md-2 col-lg-2"> </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div> <!-- row -->
+
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading" > 
+                        <label class="panel-title"> {{hitMessage}}. </label>
+                        <!--<label class="panel-title"> {{executionResults.length}} Hit(s) found. </label>-->
+                        &nbsp;&nbsp;
+                        <button class="btn btn-primary" (click)="showParams()" > last params </button>
+                        <!--Status 99 => status 3 with limit excedeed-->
+                        <i *ngIf="resultPendingStatus==3 || resultPendingStatus==99" class="fa fa-file-excel-o pull-right" 
+                                    [ngClass]="{'result-inactive':resultPendingStatus!=3 && resultPendingStatus!=99, 
+                                                'result-active':resultPendingStatus==3 || resultPendingStatus==99}" 
+                                    (click)="actionExportResult()" aria-hidden="true" style="font-size:1.5em; margin:12px 45px 0px 0px;"></i>
+                        <i *ngIf="resultPendingStatus!=3 && resultPendingStatus!=99" class="fa fa-file-excel-o pull-right" 
+                                    [ngClass]="{'result-inactive':executionResults.length == 0 || resultPendingStatus==99 || resultPendingStatus==3, 
+                                                'result-active':executionResults.length > 0 && resultPendingStatus!=99 && resultPendingStatus!=3}" 
+                                    (click)="actionExportInstanceResults()" aria-hidden="true" style="font-size:1.5em; margin:12px 45px 0px 0px;"></i>
+                        <i class="fa fa-refresh pull-right result-active" (click)="loadJobs()" aria-hidden="true" style="font-size:1.5em; margin:12px 45px 0px 0px;"></i>
+
+                    </div>
+                    <div class="panel-body">
+                        <table style="table-layout:fixed; word-wrap: break-word;" 
+                                class="table table-striped table-bordered table-hover table-condensed table-responsive color-black" 
+                                [mfData]="executionResults" #resultTable="mfDataTable" [mfRowsOnPage]="10">
+                            <thead>
+                                <tr>
+                                    <th style="width: 15%"> <mfDefaultSorter by="messageName"> Message Name </mfDefaultSorter> </th>
+                                    <th style="width: 15%"> <mfDefaultSorter by="messageName"> Message Reference </mfDefaultSorter> </th>
+                                    <th style="width: 15%"> <mfDefaultSorter by="messageName"> Selection Type </mfDefaultSorter> </th>
+                                    <th style="width: 7%"> <mfDefaultSorter by="selectionSequence"> Assign Seq </mfDefaultSorter> </th>
+                                    <th style="width: 15%"> <mfDefaultSorter by="selectionCode"> Assign Code </mfDefaultSorter> </th>
+                                    <th style="width: 15%"> <mfDefaultSorter by="backendName"> Backend Name </mfDefaultSorter> </th>
+                                    <th style="width: 7%"> <mfDefaultSorter by="ruleSequence"> Rule Seq</mfDefaultSorter> </th>
+                                    <th style="width: 15%"> <mfDefaultSorter by="ruleName">Rule Code</mfDefaultSorter> </th>
+                                    <th style="width: 43%"> <mfDefaultSorter by="ruleExpression">Rule Expression</mfDefaultSorter> </th>
+                                </tr>
+                            </thead>
+                            <tbody *ngIf="resultPendingStatus == 0 || resultPendingStatus == 3">  
+                                <tr *ngFor="let result of resultTable.data">
+                                    <td>{{result.messageNameHit | uppercase }}</td>
+                                    <td>{{result.messageReference | uppercase }}</td>
+                                    <td>{{result.selectionType | uppercase }}</td>
+                                    <td>{{result.selectionSequence | numberFormat }}</td>
+                                    <td>{{result.selectionCode | uppercase }}</td>
+                                    <td>{{result.backendName | uppercase }}</td>
+                                    <td>{{result.ruleSequence | numberFormat }}</td>
+                                    <td>{{result.ruleName | uppercase }}</td>
+                                    <td>{{result.ruleExpression }}</td>
+                                </tr>
+                            </tbody>
+                            <tbody *ngIf="resultPendingStatus != 0 && resultPendingStatus != 3">
+                                <tr >
+                                    <td colspan="9">{{ resultPendingMessage  }}</td>
+                                </tr>
+                            </tbody>
+                            <tfoot *ngIf="resultPendingStatus == 0 || resultPendingStatus == 3">
+                                <tr> <td colspan="9"> <mfBootstrapPaginator [rowsOnPageSet]="[10, 25, 50, 100]"></mfBootstrapPaginator></td></tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
+<alert (alertOutput)="alertResponse($event)"></alert>
+<!--<modal (modalOutput)="getData($event)"></modal>-->
+<!--main content end-->
+<footer class="footer dark-bg">
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <div class="top-nav notification-row pull-right">
+                <button [disabled]="disableBatchSimulationButton()" class="btn btn-primary" (click)="actionExecuteAsBatch()" > Batch Simulation </button>
+                <button [disabled]="disableInstantSimulationButton()" class="btn btn-primary" (click)="actionExecuteInstantOrNot()" > Instant Simulation </button>
+                <button class="btn btn-default" (click)="actionCancelJob()"> Abort</button>
+                <button class="btn btn-default" (click)="cancel()"> Back</button>
+            </div>
+        </div>
+    </div>
+</footer>

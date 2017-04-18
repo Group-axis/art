@@ -1,0 +1,59 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <label class="panel-title"> {{totalSelectedMessages}} Message(s) selected </label>
+        <i class="fa fa-search pull-right" aria-hidden="true" style="font-size:1.5em; margin:12px 45px 0px 0px;"></i>
+        <!--[(ngModel)]="messageTextFilter"-->
+        <input [ngFormControl]="messageTextInput"  class="pull-right" #filterText style="margin-right:10px; height:2.3em; margin-top: 5px;"
+        />
+    </div>
+    <div class="panel-body">
+        <table style="table-layout:fixed; word-wrap: break-word;" class="table table-striped table-bordered table-hover table-condensed table-responsive color-black"
+            [mfData]="messages" #messageTable="mfDataTable" [mfRowsOnPage]="7">
+            <thead>
+                <tr>
+                    <th style="width: 5%"> <input [(checked)]="selectAllMessages" (click)="actionMultiSelection($event.target.checked)" type="checkbox"
+                       style="width:21px; height:21px;" /> </th>
+                    <th style="width: 15%"> Action </th>
+                    <th style="width: 20%">
+                        <mfDefaultSorter by="name">Name</mfDefaultSorter>
+                    </th>
+                    <th style="width: 60%">
+                        <mfDefaultSorter by="content">Message</mfDefaultSorter>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let message of messageTable.data">
+                    <td>
+                        <input (click)="actionMessageSelection(message, $event.target.checked)" [checked]="message.selected" type="checkbox"
+                         style="width:21px; height:21px;" />
+                    </td>
+                    <td>&nbsp;
+                        <i class="fa fa-pencil-square-o " [ngClass]="{'image-pointer':!message.group, 'result-inactive':message.group}" aria-hidden="true"
+                            (click)="actionEdit(message)" style="font-size:1.5em;"></i>&nbsp;&nbsp;&nbsp;
+                        <i class="fa fa-times image-pointer" aria-hidden="true" (click)="actionDelete(message)" style="font-size:1.5em;"></i>
+                    </td>
+                    <td>{{message.name | uppercase }}</td>
+                    <td>{{message.content | limit:40 }}</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="4">
+                        <mfBootstrapPaginator [rowsOnPageSet]="[]"></mfBootstrapPaginator>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <hr/>
+
+        <!--<button (click)="generateNewProgressValues()" class="btn btn-primary">New Progress</button>-->
+        <button (click)="actionNewMessage()" class="btn btn-primary">New Message</button>
+        <button (click)="modalImportOpen()" class="btn btn-primary">Import Messages</button>
+    </div>
+</div>
+
+<alert (alertOutput)="alertResponse($event)"></alert>
+<modal (modalOutput)="getData($event)"></modal>
+

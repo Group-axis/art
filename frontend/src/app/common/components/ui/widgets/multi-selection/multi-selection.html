@@ -1,0 +1,23 @@
+<div class="btn-group">
+  <button class="dropdown-toggle btn btn-default" (click)="showMenu=true" type="button">{{selectionTitle}}&nbsp;<span  class="caret"></span></button>
+  <ul *ngIf="showMenu" class="dropdown-menu" style="display: block; height: auto; overflow-y: auto; max-height: 300px;">
+    <!--<li >
+                    <a  href="#" role="menuitem" tabindex="-1">
+                        <span  class="glyphicon glyphicon-ok" style="width: 16px;"></span>
+                        Check all
+                    </a>
+                </li>
+                <li >
+                    <a  href="#" role="menuitem" tabindex="-1">
+                        <span  class="glyphicon glyphicon-remove" style="width: 16px;"></span>
+                        Uncheck all
+                    </a>
+                </li>
+                <li  class="divider"></li>-->
+    <li *ngFor="let inputOption of inputOptions">
+      <a href="#" tabindex="-1" (click)="actionToggleMultiSelect($event, inputOption)">
+        <span class="fa" [ngClass]="{'fa-check':inputOption.selected}" style="width: 16px;"></span> {{inputOption.code}}
+      </a>
+    </li>
+  </ul>
+</div>

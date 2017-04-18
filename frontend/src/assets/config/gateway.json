@@ -1,0 +1,10 @@
+{
+  "backUrl": "https://127.0.0.1/apigateway/amh",
+  "esBackUrl": "https://127.0.0.1/apigateway/es",
+  "saaBackUrl" : "https://127.0.0.1/apigateway/saa",
+  "simulationBackUrl" : "https://127.0.0.1/apigateway/simulation",
+  "auditBackUrl" : "https://127.0.0.1/apigateway/audit",
+  "clientImportDir":"c:/demo",
+  "max_instant_messages": 100,
+  "max_instant_messages_alert":101
+}

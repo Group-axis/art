@@ -1,0 +1,43 @@
+<!--main content start-->
+    <input [disabled]="disabled" [(ngModel)]="selectedBackend.pkCode" (keyup)="updateBackends($event.target.value)" style="margin:5px 5px 10px 0px;"
+    /> &nbsp;
+    <i class="fa fa-plus-square image-pointer" aria-hidden="true" (click)="add()" style="font-size:1.2em;"></i> &nbsp;
+    <!--<span *ngIf="selectedBackend != undefined"> {{selectedPkDirection}}</span>-->
+    <div style="width:60%; height:200px; overflow: auto; z-index:200;" class="suggestions" *ngIf="backends.length > 0">
+        <table style="width:100%;" >
+            <tbody>
+                <tr *ngFor="let item of backends" (click)="select(item)">
+                    <td> <b>{{item.pkCode}}</b> </td>
+                    <td> {{item.pkDirection}} </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+        <p *ngIf="existingBackends.length == 0"> <b>No backend associated to assignment (mandatory) </b> </p>
+        <table *ngIf="existingBackends.length > 0" class="table table-striped table-bordered table-condensed table-responsive" [mfData]="existingBackends"
+            #assignedTable="mfDataTable" [mfRowsOnPage]="3" [mfActivePage]="activePage">
+            <thead>
+                <tr>
+                    <th style="width: 8%"> Action </th>
+                    <th style="width: 39%">Code </th>
+                    <th style="width: 53%"> Direction </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let backend of assignedTable.data">
+                    <td>&nbsp; &nbsp;
+                        <i class="fa fa-times image-pointer" aria-hidden="true" (click)="deleteBackend(backend)" style="font-size:1.5em;"></i>                                </td>
+                    <td class="color-black">{{ backend.pkCode | uppercase }}</td>
+                    <td class="color-black">{{ backend.pkDirection }}</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3">
+                        <mfBootstrapPaginator [rowsOnPageSet]="[]"></mfBootstrapPaginator>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+        <div *ngIf="existingBackends.length < 4" [style.margin.px]="bodyMargin">&nbsp;</div>
+<alert (alertOutput)="confirmClose($event)"></alert>

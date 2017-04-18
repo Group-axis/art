@@ -1,0 +1,37 @@
+<div [ngClass]="{'has-error':isStateNotValid(),'form-group':label,'form-group-sm':label,'has-feedback':feedback}">
+      <!--<label *ngIf="centerHeight" class="col-lg-2 col-sm-2" style="height:56px;border:solid 1px red;">&nbsp; </label>
+      <label *ngIf="centerHeight" class="col-lg-10 col-sm-10" style="border:solid 1px red;">&nbsp; </label>-->
+      <label *ngIf="label" class="col-sm-3 col-md-3  col-lg-3 control-label vertical-center" [style.height.px]="heightLabel">{{label}}<span *ngIf="required" class="control-label required">&nbsp;*</span></label>
+      
+      <div [ngClass]="{'col-sm-9 col-md-9 col-lg-9': label, 'col-sm-12 col-md-12 col-lg-12':!label}" style="border:solid 0px orange;">
+        <ng-content ></ng-content>
+        <span *ngIf="isFeedbackValid()" 
+              class="glyphicon glyphicon-ok form-control-feedback text-success"
+              aria-hidden="true"></span>
+        <span *ngIf="isFeedbackNotValid()"
+              class="glyphicon glyphicon-remove form-control-feedback"
+              aria-hidden="true"></span>
+        <span *ngIf="isFeedbackPending()"
+              class="glyphicon glyphicon-refresh glyphicon-refresh-animate text-muted form-control-feedback"
+              aria-hidden="true"></span>
+        <span *ngIf="isStateNotValid()" class="help-block text-danger">
+          <div *ngIf="state?.errors?.required">The field is required</div>
+          <div *ngIf="state?.errors?.remote">{{state?.errors?.remote}}</div>
+          <div *ngIf="state?.errors?.notEmpty">The list can't be empty</div>
+          <div *ngIf="state?.errors?.uniqueName">The name must be unique</div>
+          <div *ngIf="state?.errors?.invalidZip">The zip code format isn't correct</div>
+          <div *ngIf="state?.errors?.listRequired">Selected list can't be empty</div>
+          <div *ngIf="state?.errors?.ruleCodeDuplicated">Rule code already exists</div>
+          <div *ngIf="state?.errors?.usernameDuplicated">Username already exists</div>
+          <div *ngIf="state?.errors?.codeValid">Valid characters are A-Z a-z 0-9 . - _</div>
+          <div *ngIf="state?.errors?.usernameValid">Valid characters are A-Z a-z 0-9 . - _</div>
+          <div *ngIf="state?.errors?.messageNameDuplicated">Message name already exists</div>
+          <div *ngIf="state?.errors?.messageNameValid">Valid characters are A-Z a-z 0-9 . - _</div>
+          
+          
+          
+        </span>
+        <p *ngIf="!isStateNotValid()" class="help-block text-danger" style="height=34px;">&nbsp;
+        </p>
+      </div>
+    </div>    

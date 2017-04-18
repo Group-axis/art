@@ -1,0 +1,79 @@
+<!--main content start-->
+<section id="main-content">
+    <section class="wrapper">
+        <menu-header [header-navigate]="false" [header-menu]="menuConfig" (navigate)="actionNavigate($event)"></menu-header>
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">User</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form [ngFormModel]="userForm">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-6 col-lg-6 form-group form-group-sm ">
+                                    <gp-field label="Username" [required]="true" touched="true">
+                                        <input (change)="isDirty=true" [disabled]="!hasUserPermissions || !isCreation" [ngFormControl]="userForm.controls.username"
+                                            [(ngModel)]="user.username" />
+                                    </gp-field>
+                                </div>
+                                <div class="col-sm-12 col-md-6 col-lg-6 form-group form-group-sm ">
+                                    <gp-field [required]="true" touched="true" label="First Name">
+                                        <input [disabled]="!hasUserPermissions" (change)="isDirty=true" [ngFormControl]="userForm.controls.firstName" [(ngModel)]="user.firstName"
+                                            class="form-control" />
+                                    </gp-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-6 col-lg-6 form-group form-group-sm ">
+                                    <gp-field [required]="true" touched="true" label="Last Name">
+                                        <input (change)="isDirty=true" [disabled]="!hasUserPermissions" [ngFormControl]="userForm.controls.lastName" [(ngModel)]="user.lastName" />
+                                    </gp-field>
+                                </div>
+                                <div class="col-sm-12 col-md-6 col-lg-6 ">
+                                    <span style="padding-right: 35px;" class="col-sm-3 col-md-3 col-lg-3 control-label" >Active</span>
+                                    <input class="col-sm-9 col-md-9 col-lg-9" (change)="isDirty=true" [disabled]="!hasUserPermissions" type="checkbox" style="width:1.5em;" [(ngModel)]="user.active">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-6 col-lg-6 form-group form-group-sm ">
+                                    <gp-field [required]="false" label="Email">
+                                        <input (change)="isDirty=true" [disabled]="!hasUserPermissions" [(ngModel)]="user.email" />
+                                    </gp-field>
+                                </div>
+                                <div class="col-sm-12 col-md-6 col-lg-6 ">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6 col-md-6 col-lg-6 form-group form-group-sm ">
+                                <gp-field label="Profiles" heightLabel="250" [required]="true">
+                                    <gp-pick-list [active]="hasUserPermissions" [ngFormControl]="userForm.controls.profiles" labelIn="Available" [optionsIn]="availableProfiles" labelOut="Selected" [(ngModel)]="selectedProfiles"></gp-pick-list>
+                                </gp-field>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-6 form-group form-group-sm ">
+                            </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+</section>
+<alert (alertOutput)="confirmClose($event)"></alert>
+<!--main content end-->
+<footer class="footer dark-bg">
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <div class="top-nav notification-row pull-left">
+                <button *gpIf="['user.modify']" [disabled]="isCreation" class="btn btn-primary" (click)="actionResetPassword()"> Reset Password </button>
+            </div>
+            <div class="top-nav notification-row pull-right">
+                <button [disabled]="!hasUserPermissions || !userForm.valid" class="btn btn-primary" (click)="actionSave()"> Save </button>
+                <button class="btn btn-default" (click)="actionCancel()"> Cancel</button>
+            </div>
+        </div>
+    </div>
+</footer>

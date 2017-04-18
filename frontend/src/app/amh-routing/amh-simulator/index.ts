@@ -1,0 +1,1 @@
+export * from './amh-simulator.component';

@@ -1,0 +1,52 @@
+<div *ngFor="let item of config.items" > <!--[style]="width: {item.width}%"-->
+    {{item.width}} - {{item.fieldName}} - {{item.description}}
+    <!--<th >
+                <mfDefaultSorter [by]="{item.fieldName}">{item.description}</mfDefaultSorter>
+            </th>-->
+    </div>
+
+<table class="table table-striped" [mfData]="data" #mf="mfDataTable" [mfRowsOnPage]="10">
+    <thead>
+        <tr>
+            <th *ngFor="let item of config.items" style="width: {{item.width}}%">
+                <mfDefaultSorter [by]=item.fieldName>{{item.description}}</mfDefaultSorter>
+            </th>
+            <!--<th style="width: 25%">
+            <mfDefaultSorter by="active">Active</mfDefaultSorter>
+            </th>
+            <th style="width: 25%">
+                <mfDefaultSorter by="backSequence">Backend Sequence</mfDefaultSorter>
+            </th>
+            <th style="width: 25%">
+                <mfDefaultSorter by="backCode">Backend Code</mfDefaultSorter>
+            </th>
+            <th style="width: 25%">
+                <mfDefaultSorter by="ruleSequence">Rule Sequence</mfDefaultSorter>
+            </th>-->
+            <!--th style="width: 15%">
+                <mfDefaultSorter by="ruleCode">Rule Code</mfDefaultSorter>
+            </th>
+            <th style="width: 55%">
+                <mfDefaultSorter by="ruleExpressions">Rule Expressions</mfDefaultSorter>
+            </th-->
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of mf.data">
+            <td *ngFor="let field of config.items">{{item[field.fieldName]  }}</td>
+            <!--<td>{{item.active }}</td>
+            <td>{{item.backSequence}}</td>
+            <td>{{item.backCode | uppercase }}</td>
+            <td>{{item.ruleSequence}} </td>-->
+            <!--<td>{{item.ruleCode | uppercase }}</td>
+            <td>{{item.ruleExpressions }}</td>-->
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="4">
+                <mfBootstrapPaginator [rowsOnPageSet]="[10,25, 50, 100]"></mfBootstrapPaginator>
+            </td>
+        </tr>
+    </tfoot>
+</table>

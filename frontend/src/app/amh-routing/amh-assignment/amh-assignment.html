@@ -1,0 +1,41 @@
+<section id="main-content">
+    <section class="wrapper">
+        <menu-header [header-alert]="confirmation" [header-navigate]="false" [header-menu]="menuConfig" (navigate)="actionNavigate($event)"></menu-header>
+
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                    <div class="row col-sm-12 col-md-12 col-lg-12">
+                        <amh-selection-table style="padding:0px;" class="col-sm-4 col-md-4 col-lg-4" [default-option]="defaultOption" [options]="selectionTables" (tableSelected)="updateSelectionTable($event)">
+                        </amh-selection-table>
+                        <div class="col-sm-8 col-md-8 col-lg-8">&nbsp;</div>
+                    </div>
+                    </div>
+                    <div class="panel-body" style="padding-top:8px;">
+                        <amh-assignment-content [save-status]="saveStatus" [selection-config]="assignmentConfig" (rollbackSelection)="rollbackSelectionTable($event)" (enableSaveButtons)="updateDisabledButtons($event)" (saveWork)="saveWork($event)"
+                             (creationStatus)="actionUpdateCreationStatus($event)" (assignmentUpdate)="updateAssignment($event)">
+                        </amh-assignment-content>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--/.row-->
+    </section>
+</section>
+
+<alert (alertOutput)="alertResponse($event)"></alert>
+
+<footer class="footer dark-bg">
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <div class="top-nav notification-row pull-right">
+                <button *gpIf="['amh.modify.assignment']" [disabled]="disabledSaveButtons" class="btn btn-primary" (click)="save(true)"> Save & Continue</button>
+                <button *gpIf="['amh.modify.assignment']" [disabled]="disabledSaveButtons" class="btn btn-primary" (click)="save(false)"> Save </button>
+                <button *gpNotIf="['amh.modify.assignment']" disabled=true class="btn btn-primary"> Save & Continue</button>
+                <button *gpNotIf="['amh.modify.assignment']" disabled=true class="btn btn-primary"> Save </button>
+                <button class="btn btn-default" (click)="actionCancel()"> Back</button>
+            </div>
+        </div>
+    </div>
+</footer>

@@ -1,0 +1,10 @@
+<!--main content start-->
+
+<div class="row col-lg-12 col-sm-12 col-md-12" style="margin : 0px; padding:0px;">
+    <div class='form-group form-group-sm' style="margin:0px;">
+        <!--<label class="col-lg-3 col-sm-3 text-center control-label">{{label}}</label>-->
+        <select style="width: 100%;" class='combo-select col-lg-12 col-sm-12 col-md-12' [(ngModel)]="optionSelected" (change)="selectOption($event.target.selectedIndex)">
+            <option *ngFor="let option of options" [ngValue]="option">{{option.description}}</option>
+        </select>
+    </div>
+</div>

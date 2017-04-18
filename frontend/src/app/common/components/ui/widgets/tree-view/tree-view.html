@@ -1,0 +1,14 @@
+    <!--[checked]="node.checked" (click)="node.check()"-->
+<ul>
+  <li *ngFor="let node of nodes">
+    <span *ngIf="!node.leaf" ><i class="fa" [ngClass] = " { 'fa-caret-right' : node.expanded , 'fa-caret-down': !node.expanded} "></i></span>
+    <span *ngIf="node.leaf" ><input type="radio" name="toto" (click)="nodeSelected(node)"/></span>
+    <span (click)="node.toggle()">{{ node.description }}</span>
+    <div *ngIf="node.expanded">
+      <!--<ul>
+        <li *ngFor="let child of node.children">{{child.description}}</li>
+      </ul>-->
+      <tree-view [nodes]="node.children"></tree-view>
+    </div>
+  </li>
+</ul>

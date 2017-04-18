@@ -1,0 +1,63 @@
+
+<!--main content start-->
+<section id="main-content">
+	<section class="wrapper">
+		<menu-header [header-menu]="menuConfig"></menu-header>
+		<div class="row">
+			<div
+				*gpIf="['saa.export','saa.import','saa.modify.rule','saa.modify.point', 'saa.read.only']"
+				[routerLink]=" ['SAARouting'] "
+				class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+				<div class="info-box blue-bg">
+					<i class="fa fa-sitemap"></i>
+					<div class="title" style="font-size: 1.5em;">SAA Routing</div>
+				</div>
+				<!--/.info-box-->
+			</div>
+			<!--/.col-->
+
+
+			<div *gpIf="['user.modify']" [routerLink]=" ['UserAdministration'] "
+				class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+				<div class="info-box blue-bg">
+					<i class="fa fa-users" aria-hidden="true"></i>
+					<div class="title" style="font-size: 1.5em;">User Admin</div>
+				</div>
+				<!--/.info-box-->
+			</div>
+			<!--/.col-->
+
+			<div
+				*gpIf="['amh.export','amh.import','amh.modify.rule','amh.modify.assignment', 'amh.read.only']"
+				[routerLink]=" ['AMHRouting'] "
+				class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+				<div class="info-box blue-bg">
+					<i class="fa fa-university col-lg-6 col-md-6 col-sm-12 col-xs-12"></i>
+					<div class="title col-lg-6 col-md-6 col-sm-12 col-xs-12"
+						style="font-size: 1.5em;">AMH Routing</div>
+				</div>
+				<!--/.info-box-->
+			</div>
+			<!--/.col-->
+
+			<div [routerLink]=" ['MessagePartner'] "
+				class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+				<div class="info-box blue-bg">
+					<i class="fa fa-users" aria-hidden="true"></i>
+					<div class="title" style="font-size: 1.5em;">Message Partner</div>
+				</div>
+				<!--/.info-box-->
+			</div>
+			<!--/.col-->
+
+		</div>
+		<!--/.row-->
+
+		<div class="widget-foot">
+			<!-- Footer goes here -->
+		</div>
+		<!-- project team & activity end -->
+
+	</section>
+</section>
+<!--main content end-->

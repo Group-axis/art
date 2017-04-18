@@ -1,0 +1,81 @@
+      
+      <!--main content start-->
+      <section id="main-content">
+         <section class="wrapper">
+		    <menu-header [header-menu]="menuConfig"></menu-header>            
+              
+            <div class="row">
+				<div *gpIf="['amh.read.only','amh.modify.rule','amh.modify.assignment']" class="col-lg-4 col-md-4 col-sm-12 col-xs-12" [routerLink]=" ['AMHAssignmentList', { }, 'AMHAssignmentList'] ">
+					<div class="info-box blue-bg">
+						<i class="fa fa-list"></i>
+						<div class="title" style="font-size:1.5em;">Routing Overview</div>						
+					</div><!--/.info-box-->			
+				</div><!--/.col-->
+				
+				<div *gpIf="['amh.modify.rule','amh.modify.assignment']" class="col-lg-4 col-md-4 col-sm-12 col-xs-12" [routerLink]=" ['AMHAssignmentCreate', {  }, 'AMHAssignmentComponent'] ">
+					<div class="info-box blue-bg">
+						<i class="fa fa-cloud-download"></i>
+						<div class="title" style="font-size:1.5em;"> Assignments </div>						
+					</div><!--/.info-box-->			
+				</div><!--/.col-->
+
+				<!--<div *gpIf="['amh.modify.rule','amh.modify.assignment']" class="col-lg-4 col-md-4 col-sm-12 col-xs-12" [routerLink]=" ['AMHRuleCreate', { 'code': '' }, 'AMHRuleComponent'] ">
+					<div class="info-box blue-bg" >
+						<i class="fa fa-cogs"></i>
+						<div class="title" style="font-size:1.5em;">Rule Management</div>						
+					</div>			
+				</div>-->
+				
+				<div *gpIf="['amh.modify.rule','amh.modify.assignment']" class="col-lg-4 col-md-4 col-sm-12 col-xs-12" [routerLink]=" ['AMHRuleOverview', { }, 'AMHRuleOverviewComponent'] ">
+					<div class="info-box blue-bg" >
+						<i class="fa fa-cogs"></i>
+						<div class="title" style="font-size:1.5em;">Rule Management</div>						
+					</div>			
+				</div>
+			</div><!--/.row-->
+			<!--<hr style="border:1px solid black">
+			<br/>-->
+			<div class="row">	
+				<div *gpIf="['amh.routing.simulator']" class="col-lg-4 col-md-4 col-sm-12 col-xs-12" [routerLink]=" ['AMHSimulation', { 'action': 'Simulation' }, 'AMHSimulatorComponent'] ">
+					<div class="info-box blue-bg" >
+						<i class="fa fa-play-circle-o" aria-hidden="true"></i>
+						<div class="title" style="font-size:1.5em;">Routing Simulator</div>						
+					</div><!--/.info-box-->			
+				</div><!--/.col-->	
+				
+				<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+								
+				</div><!--/.col-->
+
+			</div><!--/.row-->
+
+			
+			<div class="row">	
+				<div *gpIf="['amh.import']" class="col-lg-4 col-md-4 col-sm-12 col-xs-12" [routerLink]=" ['AMHImport', { 'action': 'Import' }, 'AMHExportImportComponent'] ">
+					<div class="info-box blue-bg" >
+						<i class="fa fa-download"></i>
+						<div class="title" style="font-size:1.5em;">Import</div>						
+					</div><!--/.info-box-->			
+				</div><!--/.col-->	
+				
+				<div *gpIf="['amh.export']" class="col-lg-4 col-md-4 col-sm-12 col-xs-12" [routerLink]=" ['AMHExport', { 'action': 'Export' }, 'AMHExportImportComponent'] ">
+					<div class="info-box blue-bg" >
+						<i class="fa fa-upload"></i>
+						<div class="title" style="font-size:1.5em;">Export</div>						
+					</div><!--/.info-box-->			
+				</div><!--/.col-->
+				
+				<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+								
+				</div><!--/.col-->
+
+			</div><!--/.row-->
+		  
+            <div class="widget-foot">
+               <!-- Footer goes here -->
+            </div>
+              <!-- project team & activity end -->
+
+          </section>
+      </section>
+      <!--main content end-->

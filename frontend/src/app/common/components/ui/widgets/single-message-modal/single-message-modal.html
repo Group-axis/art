@@ -1,0 +1,45 @@
+<alert *ngIf="statusAlert" type="warning" (close)="closeAlert()"> {{statusAlert.msg}} </alert>
+<alert *ngIf="successAlert" type="success" (close)="closeAlert()"> {{successAlert.msg}} </alert>
+<alert *ngIf="errorAlert" type="danger" (close)="closeAlert()"> {{errorAlert.msg}} </alert>
+<!--<div style="padding:13px 15px;" *ngIf="!statusAlert && !successAlert && !errorAlert" > &nbsp; </div>-->
+<div class="modal-body" style="padding-bottom:0px;">
+    <section class="wrapper" style="margin-top:0px;">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <div class="panel panel-default" style="margin-bottom:0px;">
+                    <div class="panel-body" style="padding:0px 15px;">
+<form [ngFormModel]="messageForm">
+        <div class="row">
+            <div class="row">
+                    <div class="col-sm-12 col-md-8 col-lg-8">
+                <gp-field  label="Name" [required]="true" touched="true">
+                    <!--[disabled]="!hasUserPermissions || !isCreation"-->
+                    <!-- -->
+                    <input #msgName [disabled]="messageId > 0 || isReadOnly" (keypress)="actionLimit(msgName.value, 50)" type="text" (blur)="actionVerifyMessageName(msgName.value)" class="form-control" (change)="isDirty=true" [ngFormControl]="messageForm.controls.name"  [(ngModel)]="messageName"/>
+                </gp-field>
+                    </div>
+                    <div class="col-sm-12 col-md-4 col-lg-4">
+            </div>
+            </div>
+
+            <!--<div class="col-sm-12 col-md-9 col-lg-9">
+            </div-->
+            <!--<div class="col-sm-12 col-md-3 col-lg-3">
+            </div>-->
+            
+                <gp-field class="col-sm-12 col-md-12 col-lg-12" [required]="true" touched="true" >
+                 <textarea [disabled]="isReadOnly" [ngFormControl]="messageForm.controls.content" rows="20" [(ngModel)]="swiftMessage" class="form-control" ></textarea>
+                </gp-field>
+                    </div>
+    </form> 
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
+    
+</div>
+<div class="modal-footer" style="margin-top:0px;">
+    <button [disabled]="saveInProcess || !messageForm.valid" class="btn btn-primary" (click)="actionSubmit()">{{messageId > 0 ? 'Save' : 'Create'}}</button>
+    <button class="btn btn-primary" (click)="actionCancel()">Cancel</button>
+</div>

@@ -1,0 +1,110 @@
+//our root app component
+import {Component, Directive, ElementRef} from 'angular2/core';
+import {bootstrap} from 'angular2/platform/browser';
+import {AnimationBuilder} from 'angular2/src/animate/animation_builder';
+
+@Directive({
+  selector : '[animate-box]',
+  host : {
+    '[style.background-color]' : "'red'"
+  },
+  exportAs : 'tota'
+})
+class AnimateBox {
+  nativee;
+  heightNative;
+  constructor(private _toto: AnimationBuilder, private _e: ElementRef) {
+    this.nativee= this._e.nativeElement;
+    this.heightNative = this.nativee.offsetHeight;
+  }
+  nn() {
+    return  this.nativee.offsetHeight;
+  }
+  toggle(isVisible: boolean = false) {
+    let animation = this._toto.css();
+    animation
+      .setDuration(1000);
+    
+    if(!isVisible) { // Goes up!
+      animation.setFromStyles({height: '0',  overflow: 'hidden'})
+               .setToStyles({height: this.heightNative+'px'})
+    } else { // Goes down!
+      animation.setFromStyles({height: this.heightNative+'px'})
+               .setToStyles({height: '0'})
+    }
+    animation.start(this._e.nativeElement);
+    /*
+    let f=new Array(this._e.nativeElement.children);
+    f.forEach(ch => console.log(ch);animation.start(ch)); 
+    */
+  }
+}
+//<div animate-box #box="tota"  style="height:0; width:90%; overflow: hidden;">Some content</div>
+@Component({
+  selector: 'my-app',
+  template: `
+    <div class="well" style="width:300px; padding: 8px 0;">
+    <div style="overflow-y: scroll; overflow-x: hidden; height: 500px;">
+        <ul class="nav nav-list">
+            <li animate-box #box="tota" (click)="box.toggle(visible = !visible)"><label class="tree-toggler nav-header">Header 1</label>
+                <ul  class="nav nav-list tree">
+                    <li><a href="#">Link</a></li>
+                    <li><a href="#">Link</a></li>
+                    <li animate-box #box11="tota" (click)="box11.toggle(visible = !visible)"><label class="tree-toggler nav-header">Header 1.1</label>
+                        <ul class="nav nav-list tree">
+                            <li><a href="#">Link</a></li>
+                            <li><a href="#">Link</a></li>
+                            <li><label class="tree-toggler nav-header">Header 1.1.1</label>
+                                <ul class="nav nav-list tree">
+                                    <li><a href="#">Link</a></li>
+                                    <li><a href="#">Link</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li class="divider"></li>
+            <li animate-box #box1="tota" (click)="box1.toggle(visible = !visible)"><label class="tree-toggler nav-header">Header 2</label>
+                <ul class="nav nav-list tree">
+                    <li><a href="#">Link</a></li>
+                    <li><a href="#">Link</a></li>
+                    <li><label class="tree-toggler nav-header">Header 2.1</label>
+                        <ul class="nav nav-list tree">
+                            <li><a href="#">Link</a></li>
+                            <li><a href="#">Link</a></li>
+                            <li><label class="tree-toggler nav-header">Header 2.1.1</label>
+                                <ul class="nav nav-list tree">
+                                    <li><a href="#">Link</a></li>
+                                    <li><a href="#">Link</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><label class="tree-toggler nav-header">Header 2.2</label>
+                        <ul class="nav nav-list tree">
+                            <li><a href="#">Link</a></li>
+                            <li><a href="#">Link</a></li>
+                            <li><label class="tree-toggler nav-header">Header 2.2.1</label>
+                                <ul class="nav nav-list tree">
+                                    <li><a href="#">Link</a></li>
+                                    <li><a href="#">Link</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+    <button (click)="box.toggle(visible = !visible)">Animate</button>
+    d {{box.nn()}}
+  `,
+  directives : [AnimateBox]
+})
+export class App {
+  visible = true;
+}
+
+bootstrap(App).catch(err => console.error(err));

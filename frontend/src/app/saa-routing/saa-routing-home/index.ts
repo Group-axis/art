@@ -1,0 +1,1 @@
+export * from './saa-routing-home.component';

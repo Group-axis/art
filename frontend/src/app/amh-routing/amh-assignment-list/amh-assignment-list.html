@@ -1,0 +1,116 @@
+<!--main content start-->
+<section id="main-content">
+    <section class="wrapper">
+        <menu-header [header-menu]="menuConfig"></menu-header>
+        <div class="row">
+            <!--<div class="col-sm-1 col-md-1 col-lg-1"></div>-->
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading" >
+                    <div class="row col-sm-12 col-md-12 col-lg-12">
+                        <amh-selection-table style="padding:0px;" class="col-sm-4 col-md-4 col-lg-4" [default-option]="defaultOption" [options]="selectionTables" (tableSelected)="updateSelectionTable($event)">
+                        </amh-selection-table>
+                        <div class="col-sm-8 col-md-8 col-lg-8">&nbsp;</div>
+                    </div>
+                    </div>
+                </div>
+                <!--  section end -->
+            </div>
+            <!--<div class="col-sm-1 col-md-1 col-lg-1"></div>-->
+        </div>
+        <div class="row">
+            <!--<div class="col-sm-1 col-md-1 col-lg-1"></div>-->
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading" style="color:#688a7e;">
+                        <label class="panel-title">AMH Routing Table </label>
+                        
+                        <i [routerLink]=" ['AMHSimulation', { 'st': defaultOption.id }, 'AMHSimulatorComponent'] " class="fa fa-play-circle-o pull-right margin-right image-pointer" aria-hidden="true" style="font-size:2em;margin-top: 7px;"></i>
+                        <!--<a target="_blank" href="/assets/pdf/routing.pdf">-->
+                            <!--<i class="fa fa-file-pdf-o pull-right margin-right image-pointer" aria-hidden="true" style="font-size:2em;margin-top: 7px;"></i>-->
+                        <!--</a>-->
+                        <!--<a target="_blank" href="#">-->
+                            <!---->
+                            <i class="fa fa-file-excel-o pull-right image-pointer" (click)="actionExportCSVFile()" style="font-size:2em;margin-top: 7px;"></i>
+                            <!--</a>-->
+                        <!--<span class="menu-arrow" [ngClass]="{'arrow_carrot-down': descriptionGroup?.isOpen, 'arrow_carrot-right': !descriptionGroup?.isOpen}"></span>-->
+                        <i class="fa fa-search pull-right" aria-hidden="true" style="font-size:1.5em; margin:12px 45px 0px 0px;"></i>
+                        <input  class="pull-right" #filterText (keyup)="updateData(filterText.value)" style="margin-right:10px; height:2.3em; margin-top: 5px;"/>
+                        
+                    </div>
+                    <div class="panel-body">
+                        <table style="table-layout:fixed; word-wrap: break-word;" class="table table-striped table-bordered table-hover table-condensed table-responsive color-black" [mfData]="data" #mf="mfDataTable" [mfRowsOnPage]="10">
+                            <thead>
+                                <tr>
+                                    <th style="width: 5%">
+                                        <mfDefaultSorter by="active">Active</mfDefaultSorter>
+                                    </th>
+                                    <th style="width: 7%">
+                                        <mfDefaultSorter by="backSequence">Assign Seq</mfDefaultSorter>
+                                    </th>
+                                    <th style="width: 10%">
+                                        <mfDefaultSorter by="code">Assign Code</mfDefaultSorter>
+                                    </th>
+                                    <th style="width: 10; border-right: 3px solid #dddddd;">
+                                        <mfDefaultSorter by="backCode">Backend Code</mfDefaultSorter>
+                                    </th>
+                                    <th style="width: 5%">
+                                        <mfDefaultSorter by="ruleSequence">Rule Seq</mfDefaultSorter>
+                                    </th>
+                                    <th style="width: 10%">
+                                        <mfDefaultSorter by="ruleCode">Rule Code</mfDefaultSorter>
+                                    </th>
+                                    <th style="width: 53%">
+                                        <mfDefaultSorter by="ruleExpressions">Rule Expressions</mfDefaultSorter>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of mf.data">
+                                    <td>
+                                        <span *ngIf="item.active"  class="badge bg-primary">
+                                            <i class="fa fa-check" aria-hidden="true"></i>
+                                        </span>
+                                        <!--class="badge bg-danger" -->
+                                        <span *ngIf="!item.active" >
+                                            <!--<i class="fa fa-times" aria-hidden="true"></i>-->
+                                            &nbsp;
+                                        </span>
+                                     </td>
+                                    <td>{{item.backSequence}}</td>
+                                    <td *gpIf="['amh.modify.assignment']" class="image-pointer" [routerLink]=" ['AMHAssignmentEdit', { 'code': item.code, 'st': defaultOption.id,'return_to':'AMHAssignmentList'}, 'AMHAssignmentComponent'] ">{{item.code | uppercase }}</td>
+                                    <td *gpNotIf="['amh.modify.assignment']"> {{item.code | uppercase }}</td>
+                                    <td style="border-right: 3px solid #dddddd;">{{item.backCode | uppercase }}</td>
+                                    <td>{{item.ruleSequence}} </td>
+                                    <td *gpIf="['amh.modify.rule']" class="image-pointer" [routerLink]=" ['AMHRuleEdit', { 'code': item.ruleCode, 'return_to':'AMHAssignmentList', 'params':'code='+item.code+'&st='+defaultOption.id}, 'AMHRuleComponent'] ">{{item.ruleCode | uppercase }}</td>
+                                    <td *gpNotIf="['amh.modify.assignment']"> {{item.ruleCode | uppercase }}</td>
+                                    <td>{{item.ruleExpressions }}</td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="7">
+                                        <mfBootstrapPaginator [rowsOnPageSet]="[10,25, 50, 100]"></mfBootstrapPaginator>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!--  section end -->
+            <!--<div class="col-sm-1 col-md-1 col-lg-1"></div>-->
+        </div>
+        <!--/.row-->
+    </section>
+</section>
+<alert (alertOutput)="alertResponse($event)"></alert>
+<!--main content end-->
+       <footer class="footer dark-bg">
+           <div class="row">
+               <div class="col-sm-12 col-md-12 col-lg-12">
+                <div class="top-nav notification-row pull-right" >
+                </div>
+               </div>
+           </div>
+       </footer>

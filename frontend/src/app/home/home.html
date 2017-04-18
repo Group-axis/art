@@ -1,0 +1,36 @@
+<div>
+    <alert x-large *ngFor="#alert of alerts;#i = index" [type]="alert.type" dismissible="true" (close)="closeAlert(i)">
+      {{ alert?.msg }}
+    </alert>
+    
+    <alert dismissOnTimeout="3000">This alert will dismiss in 3s</alert>
+    
+    <button type="button" class='btn btn-primary' (click)="addAlert()">Add Alert</button>
+    
+    <span x-large>Your Content Here</span>
+
+    <form (ngSubmit)="submitState(localState.value)" autocomplete="off">
+
+      <input type="text"
+        placeholder="Submit Local State to App State"
+        [value]="localState.value"
+        (input)="localState.value = $event.target.value"
+        autofocus/>
+ 
+      <button color="primary">Submit Value</button>
+    </form>
+    <!--
+      <input type="text" [value]="localState.value" (input)="localState.value = $event.target.value" autofocus>
+      Rather than wiring up two-way data-binding ourselves with [value] and (input)
+      we can use Angular's [(ngModel)] syntax
+      <input type="text" [(ngModel)]="localState.value" autofocus>
+    -->
+    
+      For hot module reloading run
+      <pre>npm run start:hmr</pre>
+    
+
+    <hr>
+    <pre>this.localState = {{ localState | json }}</pre>
+
+</div>

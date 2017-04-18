@@ -1,0 +1,29 @@
+import {
+  it,
+  inject,
+  injectAsync,
+  describe,
+  beforeEachProviders,
+  TestComponentBuilder
+} from 'angular2/testing';
+
+import {Component, provide} from 'angular2/core';
+
+// Load the implementations that should be tested
+import {SibesRoutingPoint} from './sibes-routing-point.component';
+
+describe('SibesRoutingPoint', () => {
+  // provide our implementations or mocks to the dependency injector
+  beforeEachProviders(() => [
+    SibesRoutingPoint
+  ]);
+
+  it('should log ngOnInit', inject([ SibesRoutingPoint ], (sibesRoutingPoint) => {
+    spyOn(console, 'log');
+    expect(console.log).not.toHaveBeenCalled();
+
+    sibesRoutingPoint.ngOnInit();
+    expect(console.log).toHaveBeenCalled();
+  }));
+
+});

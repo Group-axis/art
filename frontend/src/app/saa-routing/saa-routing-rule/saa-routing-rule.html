@@ -1,0 +1,236 @@
+      
+      <!--main content start-->
+      <section id="main-content">
+          <section class="wrapper">            
+              <!--overview start-->
+			  <div class="row">
+				<div class="col-lg-12">
+					<h3 class="page-header"><i class="fa fa-cogs"></i>SAA Routing Rule</h3>
+					<ol class="breadcrumb">
+						<li><i class="fa fa-home"></i><a [routerLink]=" ['/Home'] ">Home</a></li>
+                        <li><i class="fa fa-sitemap"></i><a [routerLink]=" ['SAARoutingHome'] ">SAA Routing</a></li>
+						<li><i class="fa fa-cogs"></i>SAA Routing Rule</li>						  	
+					</ol>
+				</div>
+			</div>
+              
+            <div class="row">
+				
+				<!--<div class="col-lg-12">-->
+                    <!--<span *ngIf="errorMessage" class="alert alert-danger">{{errorMessage}}</span>
+                    <span *ngIf="successMessage" class="alert alert-success">{{successMessage}}</span>-->
+                    
+                    <div class="col-sm-12 col-md-12 col-lg-12">
+                            <div class="panel panel-default" >
+                                    <div class="panel-heading" >
+                                        <h3 class="panel-title">Description section </h3>
+                                        <!--<span class="menu-arrow" [ngClass]="{'arrow_carrot-down': descriptionGroup?.isOpen, 'arrow_carrot-right': !descriptionGroup?.isOpen}"></span>-->
+                                    </div>
+                                    <div class="panel-body">
+                                        <form [ngFormModel]="descriptionForm">
+                                            <div class="col-sm-6 col-md-6 col-lg-6 form-group form-group-sm " >
+                                                 <gp-label *ngIf="!isCreation" label="Routing Point" [text]="rule.routingPoint"></gp-label>
+                                                 <div *ngIf="isCreation" class="form-group form-group-sm">
+                                                    <label class="col-sm-3 col-md-3 col-lg-3 control-label">Routing Point *</label>
+                                                    <element-search style="margin-left:15px;" [default-key]="rule.routingPoint" (elementSelected)="actionRoutingPointSelected($event)"></element-search>
+                                                    <span *ngIf="pointNameErrorMsg">
+                                                        <div class="text-danger">{{pointNameErrorMsg}}</div>
+                                                    </span>
+                                                 </div>
+                                                 
+                                                <gp-field label="Sequence Number" [required]="true" touched="true">
+                                                    <input type="number" min="1" max="1000" size="6" style="width:13em" (change)="actionSequenceChange($event.target.value)" [ngFormControl]="descriptionForm.controls.sequence"  [(ngModel)]="rule.sequence"  />
+                                                    <span *ngIf="sequenceErrorMsg">
+                                                        <div class="text-danger">{{sequenceErrorMsg}}</div>
+                                                    </span> 
+                                                </gp-field>
+                                                
+                                                <!--<gp-label label="Last Modification" [text]="rule.lastModification | date:'y/MM/dd HH:mm:ss'"></gp-label>-->
+                                            </div>
+                                            
+                                            <div class="col-sm-6 col-md-6 col-lg-6 form-group form-group-sm " >
+                                                <gp-field label="Description" heightLabel="60">
+                                                    <!--[ngFormControl]="descriptionForm.controls.description" -->
+                                                    <textarea rows="4" [(ngModel)]="rule.description"></textarea> 
+                                                </gp-field>
+                                            </div>
+                                            
+                                        </form>
+                                    </div>
+                            </div> <!-- description section end -->
+                        </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                <div class="panel panel-default" >
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Condition section</h3>
+                        <!--<span class="menu-arrow" [ngClass]="{'arrow_carrot-down': descriptionGroup?.isOpen, 'arrow_carrot-right': !descriptionGroup?.isOpen}"></span>-->
+                    </div>
+                    <div class="panel-body">
+                        <form [ngFormModel]="conditionForm">
+                            <div class="form-group form-group-sm">       
+                                <div class='col-sm-5 col-md-5 col-lg-4' style="border:0px blue solid; height:37px;"></div>
+                                <div class="col-sm-6 col-md-6 col-lg-7 btn-group" style="border:0px blue solid;" >
+                                    <label class=" btn btn-default" (click)="actionUpdateConditionId(1)" [(ngModel)]="ruleConditionConditionOnId" btnRadio="1">Message</label>
+                                    <label class=" btn btn-default" (click)="actionUpdateConditionId(2)" [(ngModel)]="ruleConditionConditionOnId" btnRadio="2">Function</label>
+                                    <label class=" btn btn-default" (click)="actionUpdateConditionId(4)" [(ngModel)]="ruleConditionConditionOnId" btnRadio="4">Message and Function</label>
+                                </div>        
+                                <div class='col-sm-1 col-md-1' style="border:0px blue solid; height:37px;"></div>
+                            </div>
+                            
+                            <div class="col-sm-5 col-md-5 col-lg-5 form-group form-group-sm " >        
+                                <gp-field heightLabel="250" label="Message"  [required]="rule.condition.conditionOn.id != 2" touched="true">
+                                    <div class='col-sm-12 col-md-12' style="border:0px blue solid; height:21px;"></div>
+                                    <textarea [disabled]="rule.condition.conditionOn.id == 2" [ngFormControl]="conditionForm.controls.messages" rows="10" [(ngModel)]="rule.condition.message"></textarea> 
+                                </gp-field>
+                            </div>
+                            
+                            <div class="col-sm-7 col-md-7 col-lg-7 form-group form-group-sm ">
+                                <gp-field heightLabel="250" [required]="rule.condition.conditionOn.id != 1">
+                                    <gp-pick-list [active]="rule.condition.conditionOn.id != 1" [ngFormControl]="conditionForm.controls.functions" labelIn="Available" [optionsIn]="availableFunctions" labelOut="Selected" [(ngModel)]="selectedFunctions"></gp-pick-list>
+                                </gp-field>
+                            </div>
+                            
+                                        
+                        </form>   
+                    </div> <!-- condition section end -->
+                </div>
+                </div>
+                
+            </div>
+            <div class="row">        
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Action section</h3>
+                        <!--<span class="menu-arrow" [ngClass]="{'arrow_carrot-down': descriptionGroup?.isOpen, 'arrow_carrot-right': !descriptionGroup?.isOpen}"></span>-->
+                </div>
+                    <div class="panel-body">
+                        <form [ngFormModel]="actionForm">
+                            <div class="form-group form-group-sm">       
+                                <div class='col-sm-5 col-md-5 col-lg-4' style="border:0px blue solid; height:37px;"></div>
+                                <div class="col-sm-6 col-md-6 col-lg-7 btn-group" style="border:0px blue solid;" >
+                                    <label  class=" btn btn-default"  [(ngModel)]="ruleActionActionOnId" (click)="actionUpdateActionId(1)" btnRadio="1">Source</label>
+                                    <label class=" btn btn-default " [(ngModel)]="ruleActionActionOnId" (click)="actionUpdateActionId(2)" btnRadio="2">New Instance</label>
+                                    <label class=" btn btn-default" [(ngModel)]="ruleActionActionOnId" (click)="actionUpdateActionId(4)" btnRadio="4">Source and New Instance</label>
+                                </div>        
+                                <div class='col-sm-1 col-md-1' style="border:0px blue solid; height:37px;"></div>
+                            </div>
+
+                            <div class="col-sm-6 col-md-6 col-lg-6 form-group form-group-sm " >
+                                    <div style="height:120px;"> </div>
+   
+                                    <gp-combo-duo [active]="rule.action.actionOn.id != 2" labelParent="Action" 
+                                            [options]="availableActions"
+                                            [defaultParent]="rule.action.source.action" 
+                                            [defaultChild]="rule.action.source.actionOption" 
+                                            [(ngModel)]="sourceActionsSelected" ></gp-combo-duo>
+                                    
+                                    <gp-field class="col-sm-12 col-md-12 col-lg-12" label="Append Intervention">
+                                        <select [ngFormControl]="actionForm.controls.srcIntervention"
+                                                [disabled]="rule.action.actionOn.id == 2" class='form-control' 
+                                                [(ngModel)]="rule.action.source.intervention" 
+                                                (change)="changeSourceIntervention($event.target.selectedIndex)">
+                                            <option *ngFor="let intervention of availableInterventions" [ngValue]="intervention.code">{{intervention.text}}</option>
+                                        </select>
+                                        <textarea *ngIf="displaySourceInterventionText" [disabled]="rule.action.actionOn.id == 2" 
+                                                rows="4" 
+                                                [(ngModel)]="rule.action.source.interventionText" class="form-control" style="margin:10px 0px;"></textarea>
+                                        <textarea *ngIf="!displaySourceInterventionText" rows="4" class="form-control" style="margin:10px 0px;visibility:hidden;"></textarea>
+                                    </gp-field>
+                                    
+                                    <gp-field class="col-sm-12 col-md-12 col-lg-12" label="Unit">
+                                        <select [disabled]="rule.action.actionOn.id == 2" class='form-control' 
+                                                [(ngModel)]="rule.action.source.unit" >
+                                            <option *ngFor="let unit of availableUnits" [ngValue]="unit.code">{{unit.text}}</option>
+                                        </select>
+                                    </gp-field>
+                                    
+                                    <gp-field label="Routing code">
+                                        <input [(ngModel)]="rule.action.source.routingCode"  [disabled]="rule.action.actionOn.id == 2"/> 
+                                    </gp-field>
+                                    
+                                    <gp-field class="col-sm-12 col-md-12 col-lg-12" label="Priority">
+                                        <select [disabled]="rule.action.actionOn.id == 2" class='form-control' 
+                                                [(ngModel)]="rule.action.source.priority" >
+                                            <option *ngFor="let priority of availablePriorities" [ngValue]="priority.code">{{priority.text}}</option>
+                                        </select>
+                                    </gp-field>
+                            </div>
+                            
+                                            <!-- -->
+
+                            <div class="col-sm-6 col-md-6 col-lg-6 form-group form-group-sm " >
+                                    <gp-combo-duo [active]="rule.action.actionOn.id != 1" labelParent="Type" 
+                                            [options]="availableTypes"
+                                            [defaultParent]="rule.action.newInstance.instanceType" 
+                                            [defaultChild]="rule.action.newInstance.instanceTypeOption"
+                                            [(ngModel)]="newInstanceTypesSelected" 
+                                            ></gp-combo-duo>
+
+                                    <gp-combo-duo [active]="rule.action.actionOn.id != 1" labelParent="Action" 
+                                            [options]="availableActions"
+                                            [defaultParent]="rule.action.newInstance.action" 
+                                            [defaultChild]="rule.action.newInstance.actionOption" 
+                                            [(ngModel)]="newInstanceActionsSelected" 
+                                             ></gp-combo-duo>
+                                    
+                                    <gp-field class="col-sm-12 col-md-12 col-lg-12" label="Append Intervention">
+                                                <!---->
+                                        <select [disabled]="rule.action.actionOn.id == 1" class='form-control' 
+                                                [ngFormControl]="actionForm.controls.newIntervention"
+                                                [(ngModel)]="rule.action.newInstance.intervention" 
+                                                (change)="changeNewInstanceIntervention($event.target.selectedIndex)">
+                                            <option *ngFor="let intervention of availableInterventions" [ngValue]="intervention.code">{{intervention.text}}</option>
+                                        </select>
+                                        <textarea *ngIf="displayNewInstanceInterventionText" [disabled]="rule.action.actionOn.id == 1" 
+                                                 rows="4" 
+                                                [(ngModel)]="rule.action.newInstance.interventionText" class="form-control" style="margin:10px 0px;"></textarea>
+                                        <textarea *ngIf="!displayNewInstanceInterventionText" rows="4" class="form-control" style="margin:10px 0px;visibility:hidden;"></textarea>
+                                    </gp-field>
+                                    
+                                    <gp-field class="col-sm-12 col-md-12 col-lg-12" label="Unit">
+                                        <select [disabled]="rule.action.actionOn.id == 1" class='form-control' 
+                                                [(ngModel)]="rule.action.newInstance.unit" >
+                                            <option *ngFor="let unit of availableUnits" [ngValue]="unit.code">{{unit.text}}</option>
+                                        </select>
+                                    </gp-field>
+                                    
+                                    <gp-field label="Routing code">
+                                        <input [(ngModel)]="rule.action.newInstance.routingCode"  [disabled]="rule.action.actionOn.id == 1"/> 
+                                    </gp-field>
+                                    
+                                    <gp-field class="col-sm-12 col-md-12 col-lg-12" label="Priority">
+                                        <select [disabled]="rule.action.actionOn.id == 1" class='form-control' 
+                                                [(ngModel)]="rule.action.newInstance.priority" >
+                                            <option *ngFor="let priority of availablePriorities" [ngValue]="priority.code">{{priority.text}}</option>
+                                        </select>
+                                    </gp-field>
+                            </div>
+                            
+                                        
+                        </form>
+
+                        </div>
+                </div> <!-- action section end --> 
+                </div>
+                  <!--</div>-->
+				
+			</div><!--/.row-->
+		  
+          </section>
+      </section>
+      <alert (alertOutput)="confirmClose($event)"></alert>
+      <!--main content end-->
+       <footer class="footer dark-bg">
+           <div class="row">
+               <div class="col-sm-12 col-md-12 col-lg-12">
+                <div class="top-nav notification-row pull-right" >
+                    <button *gpIf="['saa.modify.rule']" [disabled]="isSaveButtonDisabled()" (click)="actionSave()" class="btn btn-primary"> Save </button>
+                    <button *gpNotIf="['saa.modify.rule']" disabled="true" class="btn btn-primary"> Save </button>
+                    <button class="btn btn-default" (click)="actionCancel()"> Cancel</button>
+                </div>
+               </div>
+           </div>
+       </footer>

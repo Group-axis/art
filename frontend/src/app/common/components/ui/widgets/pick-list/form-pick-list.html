@@ -1,0 +1,23 @@
+<div class="row form-group form-group-sm col-lg-12 col-sm-12" style="border:0px yellow solid;padding-left:5px;">
+    <div class='col-sm-5 col-md-5 col-lg-5'>
+        <label *ngIf="labelIn" class="col-lg-12 col-sm-12 text-center">{{labelIn}} </label>   
+        <select [disabled]="!active" class='form-control pickListSelect' #selectIn multiple (change)="changeIn($event.target.options)">
+            <option *ngFor="let optIn of optionsIn" [ngValue]="optIn"> {{optIn.htmlText}}  </option>
+        </select>
+    </div>
+    
+    <div class='col-sm-2 col-md-2 col-lg-2 pickListButtons'>
+        <label *ngIf="labelOut" class=" col-lg-12 col-sm-12"> </label>
+        <button [disabled]="!active" class='btn btn-default btn-sm col-lg-12 col-sm-12' (click)="add()">   &#62;  </button>
+        <button [disabled]="!active" class='btn btn-default btn-sm col-lg-12 col-sm-12' (click)="addAll()"> &#62;&#62; </button>
+        <button [disabled]="!active" class='btn btn-default btn-sm col-lg-12 col-sm-12' (click)="remove()">  &#60;  </button>
+        <button [disabled]="!active" class='btn btn-default btn-sm col-lg-12 col-sm-12' (click)="removeAll()">&#60;&#60;  </button>
+    </div>
+    
+    <div class='col-sm-5 col-md-5 col-lg-5'>
+        <label *ngIf="labelOut" class=" col-lg-12 col-sm-12 text-center" >{{labelOut}} </label>
+        <select [disabled]="!active" class='form-control pickListSelect' #selectOut multiple (change)="changeOut($event.target.options)">
+            <option *ngFor="let optOut of optionsOut" [ngValue]="optOut"> {{optOut.htmlText}}  </option>
+        </select>
+    </div>
+</div>

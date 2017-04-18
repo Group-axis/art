@@ -1,0 +1,8 @@
+<div class="row">
+    <div class="col-lg-12">
+        <ol class="breadcrumb">
+            <li *ngFor="let item of menu"><i [class]="item.className"></i> <a class="image-pointer" *ngIf="item.link" (click)="routeTo(item.link)"> {{item.title}} </a> <span *ngIf="!item.link" >{{item.title}}</span> </li>
+        </ol>
+    </div>
+</div>
+<alert *ngIf="alert" [type]="alert.type" dismissOnTimeout="3000" dismissible="true" (close)="closeAlert()"> {{alert.msg}} </alert>

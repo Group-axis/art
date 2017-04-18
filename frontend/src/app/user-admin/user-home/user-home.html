@@ -1,0 +1,40 @@
+      
+      <!--main content start-->
+      <section id="main-content">
+         <section class="wrapper">
+		    <menu-header [header-menu]="menuConfig"></menu-header>            
+              
+            <div class="row">
+				<div [routerLink]=" ['UserOverview', { }, 'UserOverviewComponent'] " class="col-lg-4 col-md-4 col-sm-12 col-xs-12" >
+					<div class="info-box blue-bg">
+						<i class="fa fa-list"></i>
+						<div class="title" style="font-size:1.5em;">User Overview</div>						
+					</div><!--/.info-box-->			
+				</div><!--/.col-->
+				<!--[routerLink]=" ['UserProfileManagement', {  }, 'UserProfileComponent'] "-->
+
+				<!--<div *ngIf="false" *gpIf="['user.modify']" class="col-lg-4 col-md-4 col-sm-12 col-xs-12" >
+					<div class="info-box blue-bg">
+						<i class="fa fa-key" aria-hidden="true"></i>
+						<div class="title" style="font-size:1.5em;"> Profile Management </div>						
+					</div>			
+				</div>-->
+
+				<div *gpIf="['user.modify']" [routerLink]=" ['UserCreate', { 'username': '' }, 'UserManagementComponent'] " class="col-lg-4 col-md-4 col-sm-12 col-xs-12" >
+					<div class="info-box blue-bg" >
+						<i class="fa fa-user"></i>
+						<div class="title" style="font-size:1.5em;">User Creation</div>						
+					</div><!--/.info-box-->			
+				</div><!--/.col-->
+				<div *ngIf="true" class="col-lg-4 col-md-4 col-sm-12 col-xs-12" >
+				</div><!--/.col-->
+			</div><!--/.row-->
+		  
+            <div class="widget-foot">
+               <!-- Footer goes here -->
+            </div>
+              <!-- project team & activity end -->
+
+          </section>
+      </section>
+      <!--main content end-->

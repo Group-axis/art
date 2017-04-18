@@ -1,0 +1,59 @@
+<!--main content start-->
+
+<input [disabled]="disabled" [(ngModel)]="selectedRule.code" (keyup)="updateRules($event.target.value)" style="margin:8px 5px 10px 0px;" /> &nbsp;
+<i class="fa fa-plus-square image-pointer" aria-hidden="true" (click)="add()" style="font-size:1.2em;"></i> &nbsp;
+<span *ngIf="selectedRule != undefined"> {{selectedExpression}}</span>
+<div style="width:95%; height:250px; overflow: auto;" class="suggestions" *ngIf="rules.length > 0">
+    <table style="width:100%;">
+        <tbody>
+            <tr *ngFor="let item of rules" (click)="select(item)">
+                <td style="width:15%"> <b>{{item.code}}</b> </td>
+                <td style="width:85%"> {{item.expression}} </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<p *ngIf="existingRules.length == 0"> <b>No rule criteria associated to assignment </b> </p>
+<table *ngIf="existingRules.length > 0" class="table table-striped table-bordered table-condensed table-responsive" 
+    [mfData]="existingRules" #assignedTable="mfDataTable" [mfRowsOnPage]="5">
+    <thead>
+        <tr>
+            <th style="width: 10%"> Action </th>
+            <th style="width: 10%"> Sequence </th>
+            <th style="width: 16%">
+                <mfDefaultSorter by="code">Code</mfDefaultSorter>
+            </th>
+            <th style="width: 64%">
+                <mfDefaultSorter by="expression">Criteria</mfDefaultSorter>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <!--[routerLink]=" ['AMHRuleCreate', { 'code': rule.code, 'return_to':'AMHAssignmentEdit','params':'code='+assignmentCode+'&st='+assignType }, 'AMHRuleComponent'] "-->
+        <tr *ngFor="let rule of assignedTable.data">
+            <td>&nbsp; 
+                <i class="fa fa-pencil-square-o image-pointer" aria-hidden="true" (click)="actionNavigationEmit(rule)" style="font-size:2em;"></i>&nbsp;&nbsp;&nbsp;
+                <i class="fa fa-times image-pointer" aria-hidden="true" (click)="deleteRule(rule)" style="font-size:2em;"></i>                                
+            </td>
+            <td>
+               <div class=""></div>
+               <input #ruleSequence type="number" min="1" [value]="rule.sequence" class="form-control" 
+                 size="6" maxlength="5" (change)="ruleSequenceUpdate(rule.code, ruleSequence)"/>
+                <span *ngIf="errorMsg(rule.code)">
+                    <div class="text-danger">{{errorMsg(rule.code)}}</div>
+                </span>
+            </td>
+            <td class="color-black">{{ rule.code | uppercase }}</td>
+            <td class="color-black">{{ rule.expression }}</td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="4">
+                <mfBootstrapPaginator [rowsOnPageSet]="[5, 10, 25, 50, 100]"></mfBootstrapPaginator>
+            </td>
+        </tr>
+    </tfoot>
+</table>
+
+<alert (alertOutput)="confirmClose($event)"></alert>

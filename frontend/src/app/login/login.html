@@ -1,0 +1,54 @@
+
+
+<div class="container" style="margin-left:auto">
+    
+    <form *ngIf="!resetPassword" class="login-form" (submit)="doLogin($event)">        
+    <div class="login-wrap">
+        <p class="login-img"><i class="icon_lock_alt"></i></p>
+        <p *ngIf="displayError" class="error-msg">{{getErrorMessage()}} </p>
+        <div class="input-group">
+            <span class="input-group-addon"><i class="icon_profile"></i></span>
+            <input type="text" [(ngModel)]="user.username" class="form-control" placeholder="Username" autofocus>
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon"><i class="icon_key_alt"></i></span>
+            <input type="password"  [(ngModel)]="user.oldPassword" class="form-control" placeholder="Password">
+        </div>
+        <!--<label class="checkbox">
+            <input type="checkbox" value="remember-me"> Remember me
+            <span class="pull-right"> <a href="#"> Forgot Password?</a></span>
+        </label>-->
+        <button class="btn btn-primary btn-lg btn-block" type="submit">Login</button>
+    </div>
+    </form>
+
+    <form *ngIf="resetPassword" class="login-form" (submit)="doResetPassword($event)">        
+    <div class="login-wrap">
+        <p class="login-img"><i class="icon_lock_alt"></i></p>
+        <p><b>Please change your default password</b></p>
+        <p *ngIf="getErrorMessage()" class="error-msg">{{getErrorMessage()}}</p>
+        <div class="input-group">
+            <span class="input-group-addon"><i class="icon_profile"></i></span>
+            <input type="text" disabled="true" [(ngModel)]="user.username" class="form-control" placeholder="Username">
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon"><i class="icon_key_alt"></i></span>
+            <input type="password" size="15"  length="15" [(ngModel)]="user.oldPassword" class="form-control" placeholder="Old Password" autofocus>
+        </div>
+        <div *ngIf="resetPassword" class="input-group">
+            <span class="input-group-addon"><i class="icon_key_alt"></i></span>
+            <input type="password" size="15"  length="15"  [(ngModel)]="user.newPassword" class="form-control" placeholder="New Password">
+        </div>
+        <div *ngIf="resetPassword" class="input-group">
+            <span class="input-group-addon"><i class="icon_key_alt"></i></span>
+            <input type="password" size="15"  length="15"  [(ngModel)]="user.confirmNewPassword" class="form-control" placeholder="Confirm New Password">
+        </div>
+        <!--<label class="checkbox">
+            <input type="checkbox" value="remember-me"> Remember me
+            <span class="pull-right"> <a href="#"> Forgot Password?</a></span>
+        </label>-->
+        <button [disabled]="!user.arePasswordFilled()" class="btn btn-primary btn-lg btn-block" type="submit">Change Password</button>
+    </div>
+    </form>
+
+</div>

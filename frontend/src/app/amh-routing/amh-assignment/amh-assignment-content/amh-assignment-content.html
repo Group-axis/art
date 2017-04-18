@@ -1,0 +1,112 @@
+<!--main content start-->
+<div class="row">
+    <div class="col-sm-12 col-md-12 col-lg-12">
+
+        <div class="row">
+            <!--style="padding-right: 0px;"-->
+            <div class="col-sm-12 col-md-6 col-lg-6" > 
+                <div class="panel-heading" style="border-top:solid #ccc 1px;">
+                    <span class="panel-title word-break" style="font-weight: 300;font-family: Lato;">Assignment Details [<b>{{assignment.code}}</b>]</span>
+                    <i [routerLink]=" ['AMHSimulation', { 'st': config.type, 'code': assignment.code }, 'AMHSimulatorComponent'] " class="fa fa-play-circle-o pull-right margin-right image-pointer" aria-hidden="true" style="font-size:2em;margin-top: 7px;"></i>
+                    <button [gpEnabled]="['amh.modify.assignment']" class="btn btn-default btn-sm" style="float: right; margin-top:5px;" (click)="actionCreateNewAssignment()"> Create Assignment </button>
+                    <!--<i class="fa fa-plus-square-o" [ngClass]="{ 'image-pointer' : disableInputs }" style="float: right; padding-top:10px; font-size:1.5em; border-right:0px;" aria-hidden="true" ></i>-->
+                    <!--<h3 class="panel-title">Assignment Details</h3>-->
+                </div>
+                <div class="panel-body" style="border:solid #ccc 1px; padding:0px 0px 15px 15px;">
+                    <div class="col-sm-12 col-md-12 col-lg-12" style="padding: 5px 10px 0px 0px;">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6 col-lg-6">
+                            <amh-assignment-search [default-code]="assignmentTextFilter" [assignment-type]="config.type" (assignmentSelected)="selectAssignment($event)"> </amh-assignment-search>
+                        </div>
+                        <div class="col-sm-12 col-md-6 col-lg-6"> 
+                            &nbsp;
+                        </div>
+                        </div>
+                        <div class="form-group form-group-sm col-lg-6" style="padding-left: 0px;">
+                            <span class="col-sm-12 col-md-3 col-lg-3 control-label" style="font-weight:300; padding-left: 0px;">Code&nbsp;*</span>
+                            <div class="col-sm-12 col-md-9 col-lg-9" style="padding:0px;">
+                                <input [disabled]="disableInputs || !isCreation" type="text" size="20" [value]="assignment.code" (change)="assignmentCodeUpdate($event.target)" />
+                            </div>
+                            <span *ngIf="assignmentCodeErrorMsg">
+                                <div class="text-danger">{{assignmentCodeErrorMsg}}</div>
+                            </span>
+                        </div>
+                        
+                        <div class="form-group form-group-sm col-lg-6" style="padding-left:0px;">
+                            <span class="col-sm-12 col-md-4 col-lg-4 control-label" style="font-weight:300;  padding-left: 0px;">Sequence&nbsp;*</span>
+                            <div class="col-sm-12 col-md-7 col-lg-7" style="padding:0px;">
+                                <input [disabled]="disableInputs" type="number" min="1" max="1000" size="6" style="width:13em" [value]="assignment.sequence" (change)="assignmentSequenceUpdate($event.target)"/>
+                            </div>
+                            <div *ngIf="assignmentSequenceErrorMsg" class="text-danger">{{assignmentSequenceErrorMsg}}</div>
+                        </div>
+                        <div class="form-group form-group-sm col-lg-6" style="padding-left: 0px;">
+                            <span class="col-sm-12 col-md-3 col-lg-3 control-label" style="font-weight:300;  padding-left: 0px;">Active</span>
+                            <div class="col-sm-12 col-md-9 col-lg-9" style="padding:0px 5px 5px 1px;">
+                                <input (change)="actionSetDirtyTrue()" [disabled]="disableInputs" type="checkbox" [(ngModel)]="assignment.active">
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm col-lg-6" style="padding-left:0px;  margin:0px 0px 10px 0px;">
+                            <span class="col-sm-12 col-md-4 col-lg-4 control-label" style="font-weight:300;  padding-left: 0px;">Description</span>
+                            <div class="col-sm-12 col-md-7 col-lg-7" style="padding:5px 0px;">
+                                <input (change)="actionSetDirtyTrue()" [disabled]="disableInputs" type="text" size="20" [(ngModel)]="assignment.description" />
+                            </div>
+                        </div>
+                        
+                        <div *ngIf="config.showExtraFields()" class="form-group form-group-sm col-lg-6" style="padding-left: 0px;">
+                            <span class="col-sm-12 col-md-3 col-lg-3 control-label" style="font-weight:300;  padding-left: 0px;">Name</span>
+                            <div class="col-sm-12 col-md-9 col-lg-9" style="padding:5px 5px;">
+                                <input (change)="actionSetDirtyTrue()" [disabled]="disableInputs" type="text" size="20" [(ngModel)]="assignment.name" />
+                            </div>
+                        </div>
+
+                        <div *ngIf="config.showExtraFields()" class="form-group form-group-sm col-lg-6" style="padding-left:0px;">
+                            <span class="col-sm-12 col-md-4 col-lg-4 control-label" style="font-weight:300;  padding-left: 0px;">Num Copies</span>
+                            <div class="col-sm-12 col-md-7 col-lg-7" style="padding:0px;">
+                                <input (change)="actionSetDirtyTrue()" [disabled]="disableInputs" type="number" min="1" max="1000" size="6" style="width:13em" [value]="assignment.copies" (change)="assignmentCopiesUpdate($event.target)"/>
+                            </div>
+                            <div *ngIf="assignmentCopiesErrorMsg" class="text-danger">{{assignmentCopiesErrorMsg}}</div>
+                        </div>
+                        <div *ngIf="!config.showExtraFields() && !assignmentSequenceErrorMsg && !assignmentCopiesErrorMsg && !assignmentCodeErrorMsg" style="margin-bottom:70px;">&nbsp;</div>
+                        <div *ngIf="config.showExtraFields() && !assignmentSequenceErrorMsg && !assignmentCopiesErrorMsg && !assignmentCodeErrorMsg" style="margin-bottom:30px;">&nbsp;</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-6">
+                <div class="row col-sm-12 col-md-12 col-lg-12">
+                <div class="panel-heading" style="border-top:solid #ccc 1px;">
+                    <h3 class="panel-title">Backend Selection</h3>
+                </div>
+                <!--padding:10px 15px;-->
+                <div class="panel-body" style="border:solid #ccc 1px; ">
+                    <amh-backend-selection *gpIf="['amh.modify.assignment']" [disabled]="disableInputs" [max-backends]="config.maxBackendsAllowed" [existing-backends]="usedBackends" (backendAdded)="addBackend($event)"
+                        (backendDeleted)="deleteBackend($event)"></amh-backend-selection>
+                    <amh-backend-selection *gpNotIf="['amh.modify.assignment']" disabled=true [max-backends]="config.maxBackendsAllowed" [existing-backends]="usedBackends"></amh-backend-selection>
+                </div>
+                </div>
+            </div>
+        </div>
+        <!-- ./row -->
+        <div class="row col-sm-12 col-md-12 col-lg-12" style="margin-top:10px;">
+            <!--<div class="col-sm-12 col-md-12 col-lg-12">-->
+                <div class="panel-heading" style="border-top:solid #ccc 1px;">
+
+                    <!--<h3 class="panel-title">Rule Selection</h3>-->
+                    <span class="panel-title word-break" style="font-weight: 300;font-family: Lato;">Rule Selection</span>
+                    <button *gpIf="['amh.modify.rule']" [disabled]="disableRuleCreation()" class="btn btn-default btn-sm" style="float: right; margin-top:5px;" (click)="actionRuleNavigation()"> Create Rule </button>
+                    <button *gpNotIf="['amh.modify.rule']" disabled=true class="btn btn-default btn-sm" style="float: right; margin-top:5px;"> Create Rule </button>
+                </div>
+                <div class="panel-body" style="border:solid #ccc 1px; padding: 0px 15px 0px 15px;">
+                    <amh-rule-selection *gpIf="['amh.modify.assignment']" [disabled]="disableInputs" [assignment-type]="config.type" [assignment-code]="assignment.code" [existing-rules]="assignment.rules" (statusChanged)="actionChangeRuleStatus($event)"
+                        (ruleAdded)="addRule($event)" (ruleDeleted)="deleteRule($event)" (ruleNavigate)="actionRuleNavigation($event)"></amh-rule-selection>
+                    <amh-rule-selection *gpNotIf="['amh.modify.assignment']" disabled=true [assignment-type]="config.type" [assignment-code]="assignment.code" [existing-rules]="assignment.rules"
+                         (ruleNavigate)="actionRuleNavigation($event)"></amh-rule-selection>
+                </div>
+            <!--</div>-->
+        </div>
+        <!-- ./row -->
+    </div>
+</div>
+<!--/.row -->
+
+
+<alert (alertOutput)="confirmClose($event)"></alert>

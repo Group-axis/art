@@ -1,0 +1,102 @@
+<!--main content start-->
+<section id="main-content">
+    <section class="wrapper">
+        <menu-header [header-navigate]="false" [header-menu]="menuConfig" (navigate)="actionNavigate($event)"></menu-header>
+        <div class="row">
+            <!--<div class="col-sm-1 col-md-1 col-lg-1"></div>-->
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                
+                
+                <div class="panel panel-default">
+                    <!--class="panel-heading" style="border-top:solid #ccc 1px;"-->
+                    <div class="panel-heading" style="color:#688a7e;">
+                        <!--<span class="panel-title">-->
+                        <span class="panel-title">Rule</span>
+                        <i [routerLink]=" ['AMHSimulation', { 'st': st, 'code': assignmentCode, 'ruleCode':rule.code }, 'AMHSimulatorComponent'] " class="fa fa-play-circle-o pull-right margin-right image-pointer" aria-hidden="true" style="font-size:2em;margin-top: 7px;"></i>
+                    </div>
+                    <div class="panel-body">
+                        <form [ngFormModel]="ruleForm">
+                            <div class="row">
+                                <div class="col-sm-7 col-md-7 col-lg-7 form-group form-group-sm ">
+                                    <gp-field label="Code" [required]="true" touched="true">
+                                        <input (change)="isDirty=true" [disabled]="!hasUserPermissions || !isCreation" [ngFormControl]="ruleForm.controls.code" [(ngModel)]="rule.code"/>
+                                    </gp-field>
+                                    <!--<gp-field label="Lock Code">
+                                        <input [(ngModel)]="rule.lockCode" />
+                                    </gp-field>-->
+                                </div>
+                                <!--<div class="col-sm-6 col-md-6 col-lg-6 form-group form-group-sm ">
+                                    <gp-field label="Data Owner">
+                                        <input [(ngModel)]="rule.dataOwner" />
+                                    </gp-field>
+                                    <gp-field label="Type">
+                                        <input [(ngModel)]="rule.type" />
+                                    </gp-field>
+                                </div>-->
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-7 col-md-7 col-lg-7 form-group form-group-sm " style="border-bottom:0px; padding-bottom:0px; margin-bottom:0px;">
+                                    <gp-field class="col-sm-12 col-md-12 col-lg-12" [required]="true" touched="true" label="Criteria">
+                                        <span class="pull-right margin-right">Lin:{{currrentCriteriaPosition.y}}, Col:{{currrentCriteriaPosition.x}}</span>
+                                        <textarea [disabled]="!hasUserPermissions" (keyup)="actionUpdateCursorPosition($event.target)" (change)="isDirty=true" #textCriteria (blur)="blurM($event.target.selectionStart)" [ngFormControl]="ruleForm.controls.criteria" rows="14" [(ngModel)]="rule.expression" class="form-control" ></textarea>
+                                    </gp-field>
+                                 </div>
+                                <div class="col-sm-1 col-md-1 col-lg-1  "></div>
+                                <div class="col-sm-4 col-md-4 col-lg-4 form-group form-group-sm ">
+                                    <div class="row">
+                                        <input [disabled]="!hasUserPermissions" type="text" class="col-sm-7 col-md-7 col-lg-7" 
+                                                [(ngModel)]="criteriaSearchText" 
+                                                (keyup)="updateCriteriaTree($event.target.value)" 
+                                                style="margin:20px 0px 5px 0px; width: 60%;" />
+                                        <i class="fa fa-plus-square image-pointer col-sm-5 col-md-5 col-lg-5" aria-hidden="true" (click)="addToCriteriaTextField()" style="font-size:1.2em; margin:30px 0px 5px 0px; width: 40%;"></i>
+                                    </div>
+                                    <div class="row" style="width:100%; height:250px; overflow: auto; border:1px solid #c7c7cc;" >
+                                        <tree-view [disabled]="!hasUserPermissions" [nodes]="criterias" [(ngModel)]="nodeSelected"></tree-view>
+                                    </div>
+                                    <!--{{tree.selectedCode()}}-->
+                                    <!--console.log(' selll  ' + $event);-->
+                                </div>
+                            </div>
+                             <!--.body
+                                 margin: 0;
+                                font-family: "Trebuchet MS", lucida, sans-serif;
+                                line-height: 1.5;
+                                color: black;
+                                .info
+                                    background-color: #c0ffc0;
+                             .error
+                                background-color: orange;
+                              .message
+                                    border-radius: .5em;
+                                    padding: .5em 1em;-->
+
+                            <div class="row">
+                                <div class="col-sm-7 col-md-7 col-lg-7">
+                                    <div class="col-sm-2 col-md-2  col-lg-2">
+                                    </div>
+                                    <div class="col-sm-10 col-md-10 col-lg-10">
+                                        <div class="parse-message" [ngClass]="{'error' : !isRuleValid, 'info':isRuleValid}">{{parseMessage}}</div>
+                                    </div>
+                                </div>    
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!--<div class="col-sm-1 col-md-1 col-lg-1"></div>-->
+        </div>
+    </section>
+</section>
+<alert (alertOutput)="confirmClose($event)"></alert>
+<!--main content end-->
+<footer class="footer dark-bg">
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <div class="top-nav notification-row pull-right">
+                <!--<button [disabled]="true" class="btn btn-primary" (click)="actionParse()"> Rule Validation</button>-->
+                <button [disabled]="!hasUserPermissions || !ruleForm.valid" class="btn btn-primary" (click)="save()" > Save </button>
+                <button class="btn btn-default" (click)="actionCancel()"> Cancel</button>
+            </div>
+        </div>
+    </div>
+</footer>

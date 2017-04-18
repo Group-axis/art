@@ -1,0 +1,1 @@
+export * from './sibes-routing-home.component';

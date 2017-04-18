@@ -1,0 +1,45 @@
+<!--main content start-->
+<section id="main-content">
+    <section class="wrapper">
+        <menu-header [header-menu]="menuConfig"></menu-header>
+
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">{{actionMode}} </h3>
+                    </div>
+                    <div class="panel-body">
+                        <form>
+                            <div class="row">
+                                <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                                <div class="col-sm-6 col-md-6 col-lg-6 form-group form-group-sm" *ngIf="isImport">
+                                    <input  type="file" directory (change)="fileSelection($event)" />
+                                </div>
+                                <label *ngIf="!isImport" class="col-sm-1 col-md-1 col-lg-1 control-label">File Name</label>
+                                <div class="col-sm-4 col-md-4 col-lg-4 form-group form-group-sm" *ngIf="!isImport">
+                                    <input  type="text"  (change)="exportFileNameChanged($event.target.value)" />
+                                </div>
+                                <label *ngIf="!isImport" class="col-sm-1 col-md-1 col-lg-1">.xml</label>
+                                <div class="col-sm-4 col-md-4 col-lg-4"></div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
+<alert (alertOutput)="confirmClose($event)"></alert>
+<!--main content end-->
+<footer class="footer dark-bg">
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <div class="top-nav notification-row pull-right">
+                <button *gpIf="['saa.import', 'saa.export']" [disabled]="disableExpImpButton()" class="btn btn-primary" (click)="exportImport()" > {{actionMode}} </button>
+                <button *gpNotIf="['saa.import', 'saa.export']" disabled="true" class="btn btn-primary" > {{actionMode}} </button>
+                <button class="btn btn-default" (click)="cancel()"> Cancel</button>
+            </div>
+        </div>
+    </div>
+</footer>

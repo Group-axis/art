@@ -1,0 +1,43 @@
+<alert *ngIf="statusAlert" type="warning"> {{statusAlert.msg}} </alert>
+<alert *ngIf="successAlert" type="success"> {{successAlert.msg}} </alert>
+<alert *ngIf="errorAlert" type="danger"> {{errorAlert.msg}} </alert>
+<div style="padding:13px 15px;" *ngIf="!statusAlert && !successAlert && !errorAlert"> &nbsp; </div>
+<div class="modal-body">
+    <section class="wrapper" style="margin-top:0px;">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+
+                        <form [ngFormModel]="messagesForm">
+                            <div class="row">
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-8 col-lg-8">
+                                        <!---->
+                                        <gp-field label="Name" [required]="true" [touched]="activeValidation"> 
+                                            <!--[disabled]="!hasUserPermissions || !isCreation"-->
+                                            <input type="text" class="form-control" (change)="isDirty=true" [ngFormControl]="messagesForm.controls.name"
+                                               #msgName (keypress)="actionLimit(msgName.value, 50)" (blur)="actionVerifyMessageName(msgName.value)" [(ngModel)]="messageName" />
+                                        </gp-field>
+                                    </div>
+                                    <div class="col-sm-12 col-md-4 col-lg-4">
+                                    </div>
+                                </div>
+                                <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                                <div class="col-sm-6 col-md-6 col-lg-6 form-group form-group-sm">
+                                    <input type="file" directory (change)="fileSelection($event)" />
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+<div class="modal-footer">
+    <button [disabled]="fileList.length == 0 || saveInProcess || !messagesForm.valid" class="btn btn-primary" (click)="actionSubmit()">Import</button>
+    <button class="btn btn-primary" (click)="actionCancel()">Cancel</button>
+</div>

@@ -1,0 +1,200 @@
+      
+      <!--main content start-->
+      <section id="main-content">
+          <section class="wrapper">            
+              <!--overview start-->
+			  <div class="row">
+				<div class="col-lg-12">
+					<h3 class="page-header"><i class="fa fa-cloud-download"></i>Sibes Routing Rule</h3>
+					<ol class="breadcrumb">
+						<li><i class="fa fa-home"></i><a [routerLink]=" ['/Home'] ">Home</a></li>
+                        <li><i class="fa fa-random"></i><a [routerLink]=" ['SibesRoutingHome'] ">Sibes Routing</a></li>
+						<li><i class="fa fa-cloud-download"></i>Sibes Routing Rule</li>						  	
+					</ol>
+				</div>
+			</div>
+              
+            <div class="row">
+				
+				<div class="col-lg-12">
+                    <span *ngIf="errorMessage" class="alert alert-danger">{{errorMessage}}</span>
+                    <span *ngIf="successMessage" class="alert alert-success">{{successMessage}}</span>
+
+                    <form [ngFormModel]="companyForm">
+                        <field label="Name">
+                            <input [ngFormControl]="companyForm.controls.name"  [(ngModel)]="company.name"  /> 
+                        </field>
+                        
+                        <field label="Tags">
+                            <labels [(ngModel)]="company.tags" [ngFormControl]="companyForm.controls.tags"></labels>
+                        </field>
+                        <p (totoChange)="console.log('zazaza')">Listening...</p>                        
+                    </form>
+                    {{company.tags}} _ {{company.name}}
+                    <br/><br/>
+                    <form #f="ngForm" (ngSubmit)="addItem()" class="form-validate form-horizontal" [hidden]="false"><!-- submitted-->
+                    <accordion>
+                        <accordion-group #descriptionGroup [isOpen]="true"> <!-- decription section begin-->
+                            <div accordion-heading>
+                                Description section
+                                <span class="menu-arrow" [ngClass]="{'arrow_carrot-down': descriptionGroup?.isOpen, 'arrow_carrot-right': !descriptionGroup?.isOpen}"></span>
+                            </div>
+                            
+                                        <!--<form class="form-validate form-horizontal" id="feedack_form" method="get" action="">-->
+                                    <div class="form">
+                                            
+                                            <div class="form-group ">
+                                                <label for="cname" class="control-label col-lg-2">Full Name <span class="required">*</span></label>
+                                                <div class="col-lg-10">
+                                                    <input class="form-control" id="cname" name="fullname" minlength="5" type="text" required />
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group ">
+                                                <label for="cemail" class="control-label col-lg-2">E-Mail <span class="required">*</span></label>
+                                                <div class="col-lg-10">
+                                                    <input class="form-control " id="cemail" type="email" name="email" required />
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group ">
+                                                <label for="curl" class="control-label col-lg-2">Website</label>
+                                                <div class="col-lg-10">
+                                                    <input class="form-control " id="curl" type="url" name="url" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group ">
+                                                <label for="subject" class="control-label col-lg-2">Subject <span class="required">*</span></label>
+                                                <div class="col-lg-10">
+                                                    <input class="form-control" id="subject" name="subject" minlength="5" type="text" required />
+                                                </div>
+                                            </div>                                      
+                                            <div class="form-group ">
+                                                <label for="ccomment" class="control-label col-lg-2">Feedback</label>
+                                                <div class="col-lg-10">
+                                                    <textarea class="form-control " id="ccomment" name="comment" required></textarea>
+                                                </div>
+                                            </div>
+                                    </div>
+                                        
+                        </accordion-group> <!-- description section end -->
+                        
+                        <accordion-group #conditionGroup [isOpen]="true"> <!-- condition section begin-->
+                            <div accordion-heading>
+                                Condition section
+                                <span class="menu-arrow" [ngClass]="{'arrow_carrot-down': conditionGroup?.isOpen, 'arrow_carrot-right': !conditionGroup?.isOpen}"></span>
+                            </div>
+                            <section class="panel">
+                                <div class="panel-body">
+                                    <div class="form">
+                                            
+                                            <div class="form-group ">
+                                                <label for="cname" class="control-label col-lg-2">Full Name <span class="required">*</span></label>
+                                                <div class="col-lg-10">
+                                                    <input class="form-control" id="cname" name="fullname" minlength="5" type="text" required />
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group ">
+                                                <label for="cemail" class="control-label col-lg-2">E-Mail <span class="required">*</span></label>
+                                                <div class="col-lg-10">
+                                                    <input class="form-control " id="cemail" type="email" name="email" required />
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group ">
+                                                <label for="curl" class="control-label col-lg-2">Website</label>
+                                                <div class="col-lg-10">
+                                                    <input class="form-control " id="curl" type="url" name="url" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group ">
+                                                <label for="subject" class="control-label col-lg-2">Subject <span class="required">*</span></label>
+                                                <div class="col-lg-10">
+                                                    <input class="form-control" id="subject" name="subject" minlength="5" type="text" required />
+                                                </div>
+                                            </div>                                      
+                                            <div class="form-group ">
+                                                <label for="ccomment" class="control-label col-lg-2">Feedback</label>
+                                                <div class="col-lg-10">
+                                                    <textarea class="form-control " id="ccomment" name="comment" required></textarea>
+                                                </div>
+                                            </div>
+                                    </div>
+
+                                </div>
+                            </section>   
+                        </accordion-group> <!-- condition section end -->
+                        
+                        <accordion-group #actionGroup [isOpen]="true"> <!-- action section begin-->
+                            <div accordion-heading>
+                                Action section
+                                <span class="menu-arrow" [ngClass]="{'arrow_carrot-down': actionGroup?.isOpen, 'arrow_carrot-right': !actionGroup?.isOpen}"></span>
+                            </div>
+                            <section class="panel">
+                                <header class="panel-heading">
+                                    Create
+                                </header>
+                                <div class="panel-body">
+                                    <div class="form">
+                                            
+                                            <div class="form-group ">
+                                                <label for="cname" class="control-label col-lg-2">Full Name <span class="required">*</span></label>
+                                                <div class="col-lg-10">
+                                                    <input class="form-control" id="cname" name="fullname" minlength="5" type="text" required />
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group ">
+                                                <label for="cemail" class="control-label col-lg-2">E-Mail <span class="required">*</span></label>
+                                                <div class="col-lg-10">
+                                                    <input class="form-control " id="cemail" type="email" name="email" required />
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group ">
+                                                <label for="curl" class="control-label col-lg-2">Website</label>
+                                                <div class="col-lg-10">
+                                                    <input class="form-control " id="curl" type="url" name="url" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group ">
+                                                <label for="subject" class="control-label col-lg-2">Subject <span class="required">*</span></label>
+                                                <div class="col-lg-10">
+                                                    <input class="form-control" id="subject" name="subject" minlength="5" type="text" required />
+                                                </div>
+                                            </div>                                      
+                                            <div class="form-group ">
+                                                <label for="ccomment" class="control-label col-lg-2">Feedback</label>
+                                                <div class="col-lg-10">
+                                                    <textarea class="form-control " id="ccomment" name="comment" required></textarea>
+                                                </div>
+                                            </div>
+                                            
+                                    </div>
+
+                                </div>
+                            </section>   
+                        </accordion-group> <!-- action section end --> 
+                        
+                    </accordion>
+                    <div class="form-group">
+                        <div class="col-lg-offset-2 col-lg-10">
+                            <button class="btn btn-primary" type="submit">Save</button>
+                            <button class="btn btn-default" type="button">Cancel</button>
+                        </div>
+                     </div>
+                  </form>
+                      
+                  </div>
+				
+			</div><!--/.row-->
+		  
+                  <div class="widget-foot">
+                    <!-- Footer goes here -->
+                  </div>
+              <!-- project team & activity end -->
+
+          </section>
+      </section>
+      <!--main content end-->
