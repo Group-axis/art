@@ -153,3 +153,9 @@ backend/groupsuite-tools/.cache*
 backend/routing-write-model/.cache*
 backend/routing-write-model/.classpath
 backend/routing-write-model/.project
+
+frontend/.settings/
+frontend/dist/
+frontend/node_modules/
+frontend/.project
+frontend/

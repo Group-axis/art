@@ -56,8 +56,7 @@ import {enableProdMode} from "@angular/core"; enableProdMode();
   { path: '/sibes-routing/...', name: 'SibesRouting', loader: () => require('es6-promise!./sibes-routing')('SibesRouting') },
   { path: '/saa-routing/...', name: 'SAARouting', loader: () => require('es6-promise!./saa-routing')('SAARouting') },
   { path: '/amh-routing/...', name: 'AMHRouting', loader: () => require('es6-promise!./amh-routing')('AMHRouting') },
-  { path: '/message-partner/...', name: 'MessagePartner', loader: () => require('es6-promise!./message-partner')('MessagePartner') },
-  { path: '/user-admin/...', name: 'UserAdministration', loader: () => require('es6-promise!./user-admin')('UserAdmin') }
+   { path: '/user-admin/...', name: 'UserAdministration', loader: () => require('es6-promise!./user-admin')('UserAdmin') }
 ])
 export class App {
   angularclassLogo = 'assets/img/angularclass-avatar.png';

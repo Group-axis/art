@@ -24,7 +24,8 @@ import {ROUTER_DIRECTIVES, RouteConfig, RouteParams} from 'angular2/router';
   { path: '/routing-rule/:pointName/:sequence/edit', name: 'RuleEdit', loader: () => require('es6-promise!./saa-routing-rule')('SAARoutingRule') },
   { path: '/export', name: 'SAAExport', loader: () => require('es6-promise!./saa-export-import')('SAAExportImportComponent') },
   { path: '/simulation', name: 'SAASimulation', loader: () => require('es6-promise!./saa-simulator')('SAASimulatorComponent') },
-  { path: '/import', name: 'SAAImport', loader: () => require('es6-promise!./saa-export-import')('SAAExportImportComponent') }
+  { path: '/import', name: 'SAAImport', loader: () => require('es6-promise!./saa-export-import')('SAAExportImportComponent') },
+  { path: '/message-partner/...', name: 'MessagePartner', loader: () => require('es6-promise!./message-partner')('MessagePartner') }
 ])
 export class SAARouting {
   constructor() {
