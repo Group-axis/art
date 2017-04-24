@@ -14,7 +14,7 @@ import lombok.Data;
 public class ConnectionMethod {
 
     @Id
-    private String name;
+    private String connectionMethodName;
     private String dataFormat;
     private String queueManagerName;
     private String queueName;
